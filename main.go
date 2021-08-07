@@ -36,9 +36,6 @@ func setupRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(static.Serve("/", static.LocalFile("./public", true)))
 
-	router.GET("/ping", func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{"message": "pong"})
-	})
 	router.GET("/sparkles.json", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"sparkles": db.Sparkles})
 	})
