@@ -17,30 +17,43 @@ type Sparkle struct {
 	Reason   string
 }
 
-type SparkleRepository struct {
+type InMemoryDatabase struct {
 	Sparkles []Sparkle
 }
 
-func (self *SparkleRepository) Save(sparkle Sparkle) {
-	self.Sparkles = append(self.Sparkles, sparkle)
+func (db *InMemoryDatabase) Save(sparkle Sparkle) {
+	db.Sparkles = append(db.Sparkles, sparkle)
+}
+
+func squish(item string) string {
+	return strings.Trim(item, " ")
 }
 
 func createSparkleFrom(body string) Sparkle {
 	items := strings.SplitAfterN(body, " ", 2)
+	username := squish(items[0])
+	reason := squish(items[1])
+
 	return Sparkle{
-		Sparklee: User{Name: items[0]},
-		Reason:   items[1],
+		Sparklee: User{Name: username},
+		Reason:   reason,
 	}
 }
 
-var db SparkleRepository = SparkleRepository{
+var db InMemoryDatabase = InMemoryDatabase{
 	Sparkles: []Sparkle{},
 }
 
 func setupRouter() *gin.Engine {
 	router := gin.Default()
+	router.LoadHTMLGlob("templates/**/*")
 	router.Use(static.Serve("/", static.LocalFile("./public", true)))
 
+	router.GET("/sparkles", func(context *gin.Context) {
+		context.HTML(http.StatusOK, "sparkles/index.tmpl", gin.H{
+			"sparkles": db.Sparkles,
+		})
+	})
 	router.GET("/sparkles.json", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"sparkles": db.Sparkles})
 	})

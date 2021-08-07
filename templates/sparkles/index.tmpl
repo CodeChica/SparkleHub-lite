@@ -1,0 +1,5 @@
+{{ define "sparkles/index.tmpl" }}
+  {{ range $sparkle := .sparkles }}
+  <p>{{ .Sparklee }}{{ .Reason }}</p>
+  {{ end }}
+{{end}}
