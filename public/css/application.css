@@ -1,0 +1,119 @@
+@font-face {
+  font-family: "Alliance No.1";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Alliance-No-1-Regular.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Alliance No.1";
+  font-style: italic;
+  font-weight: 400;
+  src: url("/fonts/Alliance-No-1-Italic.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Alliance No.1";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/Alliance-No-1-SemiBold.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Alliance No.1";
+  font-style: normal;
+  font-weight: 600;
+  src: url("/fonts/Alliance-No-1-Bold.woff") format("woff");
+  font-display: swap;
+}
+.octicon-search {
+  position: absolute;
+  top: 7px;
+  left: 8px;
+}
+
+.header-link {
+  font-weight: 600;
+  color: var(--color-text-white);
+  white-space: nowrap;
+}
+.header-link:hover, .header-link:focus {
+  color: var(--color-text-white);
+  text-decoration: none;
+}
+
+.hero {
+  background: linear-gradient(114.95deg, #24292E 30.38%, #781084 120.55%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
+  padding: 96px 0 200px 0;
+}
+.hero .hero__calloutPrimary {
+  font-family: "Alliance No.1";
+  font-size: 72px;
+  font-weight: 600;
+  letter-spacing: -2px;
+  line-height: 72px;
+}
+.hero .hero__calloutSecondary {
+  font-family: "Alliance No.1";
+  opacity: 0.6;
+}
+.hero .hero-sparkle-label {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+@media (min-width: 544px) {
+  .hero .hero-sparkle-label {
+    top: 14px;
+  }
+}
+.hero .hero-sparkle-input {
+  padding-left: 78px;
+}
+
+.header-brand-icon-bg {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(152deg, #ff7300, #dc00ff, #008cff);
+  background-size: 600% 600%;
+  -webkit-animation: HeaderBrandBackgroundAnimation 15s ease infinite;
+  -moz-animation: HeaderBrandBackgroundAnimation 15s ease infinite;
+  animation: HeaderBrandBackgroundAnimation 15s ease infinite;
+}
+
+@-webkit-keyframes HeaderBrandBackgroundAnimation {
+  0% {
+    background-position: 14% 0%;
+  }
+  50% {
+    background-position: 87% 100%;
+  }
+  100% {
+    background-position: 14% 0%;
+  }
+}
+@-moz-keyframes HeaderBrandBackgroundAnimation {
+  0% {
+    background-position: 14% 0%;
+  }
+  50% {
+    background-position: 87% 100%;
+  }
+  100% {
+    background-position: 14% 0%;
+  }
+}
+@keyframes HeaderBrandBackgroundAnimation {
+  0% {
+    background-position: 14% 0%;
+  }
+  50% {
+    background-position: 87% 100%;
+  }
+  100% {
+    background-position: 14% 0%;
+  }
+}
