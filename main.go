@@ -29,13 +29,17 @@ func squish(item string) string {
 	return strings.Trim(item, " ")
 }
 
-func createSparkleFrom(body string) Sparkle {
+func NewUser(name string) User {
+	return User{Name: name}
+}
+
+func NewSparkle(body string) Sparkle {
 	items := strings.SplitAfterN(body, " ", 2)
 	username := squish(items[0])
 	reason := squish(items[1])
 
 	return Sparkle{
-		Sparklee: User{Name: username},
+		Sparklee: NewUser(username),
 		Reason:   reason,
 	}
 }
@@ -48,7 +52,6 @@ func setupRouter() *gin.Engine {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/**/*")
 	router.Use(static.Serve("/", static.LocalFile("./public", true)))
-
 	router.GET("/sparkles", func(context *gin.Context) {
 		context.HTML(http.StatusOK, "sparkles/index.tmpl", gin.H{
 			"sparkles": db.Sparkles,
@@ -58,7 +61,7 @@ func setupRouter() *gin.Engine {
 		context.JSON(http.StatusOK, gin.H{"sparkles": db.Sparkles})
 	})
 	router.POST("/sparkles", func(context *gin.Context) {
-		db.Save(createSparkleFrom(context.PostForm("body")))
+		db.Save(NewSparkle(context.PostForm("body")))
 		context.Redirect(http.StatusFound, "/")
 	})
 	return router
