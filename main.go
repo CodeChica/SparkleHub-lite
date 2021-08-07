@@ -21,11 +21,16 @@ type SparkleRepository struct {
 	Sparkles []Sparkle
 }
 
-func (self *SparkleRepository) Insert(sparklee string, reason string) {
-	self.Sparkles = append(self.Sparkles, Sparkle{
-		Sparklee: User{Name: sparklee},
-		Reason:   reason,
-	})
+func (self *SparkleRepository) Save(sparkle Sparkle) {
+	self.Sparkles = append(self.Sparkles, sparkle)
+}
+
+func createSparkleFrom(body string) Sparkle {
+	items := strings.SplitAfterN(body, " ", 2)
+	return Sparkle{
+		Sparklee: User{Name: items[0]},
+		Reason:   items[1],
+	}
 }
 
 var db SparkleRepository = SparkleRepository{
@@ -40,9 +45,7 @@ func setupRouter() *gin.Engine {
 		context.JSON(http.StatusOK, gin.H{"sparkles": db.Sparkles})
 	})
 	router.POST("/sparkles", func(context *gin.Context) {
-		body := context.PostForm("body")
-		items := strings.SplitAfterN(body, " ", 2)
-		db.Insert(items[0], items[1])
+		db.Save(createSparkleFrom(context.PostForm("body")))
 		context.Redirect(http.StatusFound, "/")
 	})
 	return router
