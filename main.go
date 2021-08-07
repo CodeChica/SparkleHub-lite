@@ -14,7 +14,6 @@ type User struct {
 
 type Sparkle struct {
 	Sparklee User
-	Sparkler User
 	Reason   string
 }
 
@@ -22,15 +21,16 @@ type SparkleRepository struct {
 	Sparkles []Sparkle
 }
 
-func (self *SparkleRepository) Insert(sparkler string, sparklee string, reason string) {
+func (self *SparkleRepository) Insert(sparklee string, reason string) {
 	self.Sparkles = append(self.Sparkles, Sparkle{
 		Sparklee: User{Name: sparklee},
-		Sparkler: User{Name: sparkler},
 		Reason:   reason,
 	})
 }
 
-var db SparkleRepository
+var db SparkleRepository = SparkleRepository{
+	Sparkles: []Sparkle{},
+}
 
 func setupRouter() *gin.Engine {
 	router := gin.Default()
@@ -45,7 +45,7 @@ func setupRouter() *gin.Engine {
 	router.POST("/sparkles", func(context *gin.Context) {
 		body := context.PostForm("body")
 		items := strings.SplitAfterN(body, " ", 2)
-		db.Insert("xlgmokha", items[0], items[1])
+		db.Insert(items[0], items[1])
 		context.Redirect(http.StatusFound, "/")
 	})
 	return router
