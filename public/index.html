@@ -1,10 +1,74 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Hello World</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sparkles</title>
+    <meta name="theme-color" content="#24292e">
+    <meta name="csrf-param" content="authenticity_token" />
+    <link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" />
+    <link href="/application.css" rel="stylesheet" />
+    <script src="/application.js"></script>
   </head>
   <body>
-    <h1>Hello World</h1>
-    <p>Whoa!</p>
+    <header class="Header flex-justify-between">
+      <div class="Header-item">
+        <a class="Header-link f4 d-flex flex-items-center" href="/">
+          <svg class="octicon octicon-mark-github mr-2 v-align-middle" height="32" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+        </a>
+        <span>SparkleHub</span>
+      </div>
+
+      <nav class="Header-item mr-0" data-avatar>
+        <a class="avatar" href="/sparkles">
+          <svg class="octicon octicon-person" height="32" viewBox="0 0 24 24" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M12 2.5a5.5 5.5 0 00-3.096 10.047 9.005 9.005 0 00-5.9 8.18.75.75 0 001.5.045 7.5 7.5 0 0114.993 0 .75.75 0 101.499-.044 9.005 9.005 0 00-5.9-8.181A5.5 5.5 0 0012 2.5zM8 8a4 4 0 118 0 4 4 0 01-8 0z"></path></svg>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero p-responsive">
+        <div class="container-lg">
+          <p class="hero__calloutPrimary color-text-white text-shadow-dark mb-3">Show your gratitude</p>
+          <p class="hero__calloutSecondary f2-light color-text-white mb-4">Sparkle  ✨ your peers to let them know you appreciate their work.</p>
+
+          <form class="d-flex position-relative flex-column flex-sm-row" action="/sparkles" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="Jsk_whDKS-G4OzSNEeRV690USf0b9zmMwcKwzZAF9MjT9UC7JkGn473Z9soj43mlCFQV7dS07e43Y7-yOXLypQ" />
+            <label class="hero-sparkle-label" for="body">/sparkle</label>
+            <input aria-label="large input" autocapitalize="false" autocomplete="false" autocorrect="false" class="hero-sparkle-input form-control flex-1 pt-2 pb-2" placeholder="kirsty for volunteering to help!" spellcheck="false" type="text" name="body" id="body" />
+            <div class="f4 mt-2 mt-sm-0">
+              <button type="submit" class="btn btn-primary btn-large ml-sm-2 d-block width-full">
+                ✨ Sparkle
+              </button>
+            </div>
+          </form>  </div>
+      </div>
+
+      <div class="container-lg p-responsive js-sparkle-index-root">
+        <div class="d-flex flex-column flex-items-start js-flash-messages">
+        </div>
+
+        <div class="pagehead">
+          <h1 class="f2">Recent sparkles</h1>
+        </div>
+
+        <div class="col-12 d-flex flex-column flex-justify-start flex-content-stretch mt-4 js-sparkle-list-container">
+          <div class="blankslate">
+            <h3 class="mb-1">No sparkles yet.</h3>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <footer class="app-footer d-flex flex-items-center flex-justify-center px-5 py-5 text-center border-top">
+      <svg class="octicon octicon-mark-github mr-1" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+      <div>GitHub ✨</div>
+    </footer>
+
+    <div class="Popover js-hovercard-content position-absolute" style="display: none; outline: none;" tabindex="0">
+      <div class="Popover-message Popover-message--bottom-left Popover-message--large Box color-shadow-large" style="width:360px;">
+      </div>
+    </div>
   </body>
 </html>
