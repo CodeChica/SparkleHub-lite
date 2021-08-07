@@ -41,7 +41,7 @@ func setupRouter() *gin.Engine {
 	router.GET("/ping", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"message": "pong"})
 	})
-	router.GET("/sparkles", func(context *gin.Context) {
+	router.GET("/sparkles.json", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"sparkles": db.Sparkles})
 	})
 	router.POST("/sparkles", func(context *gin.Context) {
