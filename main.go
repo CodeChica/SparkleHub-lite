@@ -52,7 +52,7 @@ func setupRouter() *gin.Engine {
 	router := gin.Default()
 	router.LoadHTMLGlob("views/**/*")
 	router.Use(static.Serve("/", static.LocalFile("./public", true)))
-	router.GET("/sparkles", func(context *gin.Context) {
+	router.GET("/sparkles.html", func(context *gin.Context) {
 		context.HTML(http.StatusOK, "sparkles/index.tmpl", gin.H{
 			"sparkles": db.Sparkles,
 		})
