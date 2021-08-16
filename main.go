@@ -50,7 +50,7 @@ var db InMemoryDatabase = InMemoryDatabase{
 
 func setupRouter() *gin.Engine {
 	router := gin.Default()
-	router.LoadHTMLGlob("templates/**/*")
+	router.LoadHTMLGlob("views/**/*")
 	router.Use(static.Serve("/", static.LocalFile("./public", true)))
 	router.GET("/sparkles", func(context *gin.Context) {
 		context.HTML(http.StatusOK, "sparkles/index.tmpl", gin.H{
