@@ -4,7 +4,8 @@ This is a web application that allows you to say nice things about other people
 called "Sparkles".
 
 A single HTML file can be found in `./public/index.html` that is the home page
-for the web application.
+for the web application. A live version of this application can be found
+[here][production].
 
 ## Getting Started
 
@@ -41,3 +42,4 @@ Use this endpoint to get a list of all the sparkles.
 ```
 
 [golang]: https://golang.org/doc/install
+[production]: https://sparklehub.herokuapp.com
