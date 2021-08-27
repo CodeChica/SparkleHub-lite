@@ -15,7 +15,7 @@ func TestWhenThereAreNoSparkles(t *testing.T) {
 	router := setupRouter()
 
 	response := httptest.NewRecorder()
-	request, _ := http.NewRequest("GET", "/", nil)
+	request, _ := http.NewRequest("GET", "/sparkles.html", nil)
 	router.ServeHTTP(response, request)
 
 	assert.Equal(t, 200, response.Code)
@@ -27,12 +27,13 @@ func TestWhenOneSparkleIsCreated(t *testing.T) {
 
 	response := httptest.NewRecorder()
 	request, _ := http.NewRequest("POST", "/sparkles", strings.NewReader("body=@monalisa+for+being+kind"))
+	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	router.ServeHTTP(response, request)
 
-	assert.Equal(t, 200, response.Code)
+	assert.Equal(t, 302, response.Code)
 
 	response = httptest.NewRecorder()
-	request, _ = http.NewRequest("GET", "/", nil)
+	request, _ = http.NewRequest("GET", "/sparkles.html", nil)
 	router.ServeHTTP(response, request)
 
 	assert.Equal(t, 200, response.Code)

@@ -1,5 +1,10 @@
 {{ define "sparkles/index.tmpl" }}
+{{ if eq (len .sparkles) 0 }}
+  <h1 class="f2">No sparkles yet</h1>
+{{ else }}
+  <h1 class="f2">Recent sparkles</h1>
   {{ range $sparkle := .sparkles }}
     <p>{{ .Sparklee.Name }} {{ .Reason }}</p>
   {{ end }}
+{{ end }}
 {{end}}
