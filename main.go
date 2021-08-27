@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-gonic/contrib/static"
@@ -68,5 +69,11 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
-	setupRouter().Run(":8080")
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "8080"
+	}
+
+	setupRouter().Run(":" + port)
 }
