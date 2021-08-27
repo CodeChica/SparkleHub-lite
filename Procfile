@@ -1,1 +1,0 @@
-web: script/server
