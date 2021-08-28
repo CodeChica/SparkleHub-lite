@@ -10,7 +10,7 @@ import (
 )
 
 type User struct {
-	Name string
+	Login string
 }
 
 type Sparkle struct {
@@ -31,7 +31,7 @@ func squish(item string) string {
 }
 
 func NewUser(name string) User {
-	return User{Name: name}
+	return User{Login: name}
 }
 
 func NewSparkle(body string) Sparkle {

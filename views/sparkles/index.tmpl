@@ -4,7 +4,7 @@
 {{ else }}
   <h1 class="f2">Recent sparkles</h1>
   {{ range $sparkle := .sparkles }}
-    <p>{{ .Sparklee.Name }} {{ .Reason }}</p>
+    <p>{{ .Sparklee.Login }} {{ .Reason }}</p>
   {{ end }}
 {{ end }}
 {{end}}
