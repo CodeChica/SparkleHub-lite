@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+if [ "$#" -lt 2 ]; then
+  echo "Usage: $0 <message>"
+  exit 1
+fi
+
+body="$(echo "$@" | sed 's/ /+/g')"
+curl -s http://localhost:8080/sparkles -d "body=$body"
