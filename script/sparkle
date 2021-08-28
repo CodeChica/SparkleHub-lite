@@ -7,5 +7,6 @@ if [ "$#" -lt 2 ]; then
   exit 1
 fi
 
+HOST=${HOST:-http://localhost:8080}
 body="$(echo "$@" | sed 's/ /+/g')"
-curl -s http://localhost:8080/sparkles -d "body=$body"
+curl -s "$HOST/sparkles" -d "body=$body"
