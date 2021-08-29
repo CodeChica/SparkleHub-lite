@@ -1,13 +1,19 @@
-class AutoReload {
-  constructor(id, url) {
-    this.element = document.querySelector(id);
+class ContentLoaderController {
+  constructor(elementId, url, refreshInterval = 10000) {
+    this.element = document.querySelector(elementId);
     this.url = url;
+    this.start(refreshInterval);
   }
 
-  start(milliseconds = 1000) {
-    if (!this.intervalId) {
-      this.intervalId = setInterval(() => this.reload(), milliseconds);
-    }
+  start(refreshInterval) {
+    if (this.hasStarted())
+      return
+
+    this.intervalId = setInterval(() => this.reload(), refreshInterval);
+  }
+
+  hasStarted() {
+    return this.intervalId;
   }
 
   reload() {
@@ -17,19 +23,18 @@ class AutoReload {
   }
 
   stop() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
+    if (!this.hasStarted())
+      return
+
+    clearInterval(this.intervalId);
+    this.intervalId = null;
   }
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-  window.sparkles = new AutoReload('#sparkles-list', "/sparkles.html")
-  window.sparkles.start();
+  window.sparkles = new ContentLoaderController('#sparkles-list', "/sparkles.html")
 });
 
 document.addEventListener('unload', (event) => {
   window.sparkles.stop();
 });
-
