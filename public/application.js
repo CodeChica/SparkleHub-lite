@@ -1,7 +1,8 @@
 class ContentLoaderController {
-  constructor(elementId, url, refreshInterval = 10000) {
+  constructor(elementId, url, refreshInterval = 1000) {
     this.element = document.querySelector(elementId);
     this.url = url;
+    this.reload()
     this.start(refreshInterval);
   }
 
