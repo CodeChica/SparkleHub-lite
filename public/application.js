@@ -1,33 +1,35 @@
-class Sparkles {
+class AutoReload {
   constructor(id, url) {
     this.element = document.querySelector(id);
     this.url = url;
   }
 
-  refresh() {
+  start(milliseconds = 1000) {
+    if (!this.intervalId) {
+      this.intervalId = setInterval(() => this.reload(), milliseconds);
+    }
+  }
+
+  reload() {
     fetch(this.url)
       .then((response) => response.text())
       .then((html) => this.element.innerHTML = html);
   }
 
-  startPolling() {
-    if (!this.intervalId) {
-      this.intervalId = setInterval(() => this.refresh(), 1000);
-    }
-  }
-
-  stopPolling() {
+  stop() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
+      this.intervalId = null;
     }
   }
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-  window.Sparkles = new Sparkles('#sparkles-list', "/sparkles.html")
-  window.Sparkles.startPolling();
+  window.sparkles = new AutoReload('#sparkles-list', "/sparkles.html")
+  window.sparkles.start();
 });
 
 document.addEventListener('unload', (event) => {
-  window.Sparkles.stopPolling();
+  window.sparkles.stop();
 });
+
