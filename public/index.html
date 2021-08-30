@@ -8,38 +8,25 @@
     <script src="/application.js"></script>
   </head>
   <body>
-    <header>
-      <div class="container">
-        <div class="row">
-          <div class="column-12">
-            <span>SparkleHub ✨</span>
-          </div>
-        </div>
-      </div>
-    </header>
     <main>
-      <div class="container">
-        <div class="row">
-          <div class="column-12 hero text-center">
-            <p class="hero__calloutPrimary">Show your gratitude</p>
-            <p class="hero__calloutSecondary">
-              Sparkle  ✨ your peers to let them know you appreciate their work.
-            </p>
+      <div class="hero text-center">
+        <p class="hero__calloutPrimary">Show your gratitude</p>
+        <p class="hero__calloutSecondary">
+          Sparkle  ✨ your peers to let them know you appreciate their work.
+        </p>
 
-            <form action="/sparkles" method="post">
-              <label for="body">/sparkle</label>
-              <input
-                id="body"
-                name="body"
-                placeholder="@monalisa for helping me with my project!"
-                type="text"
-                />
-              <button type="submit" class="block center">
-                ✨ Sparkle
-              </button>
-            </form>
-          </div>
-        </div>
+        <form action="/sparkles" method="post">
+          <label for="body">/sparkle</label>
+          <input
+            id="body"
+            name="body"
+            placeholder="@monalisa for helping me with my project!"
+            type="text"
+            />
+          <button type="submit" class="block center">
+            ✨ Sparkle
+          </button>
+        </form>
       </div>
       <div id="sparkles-list" class="container"></div>
     </main>

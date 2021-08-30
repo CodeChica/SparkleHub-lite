@@ -128,7 +128,9 @@ ul {
 }
 .hero input[type=text] {
   width: 65%;
+  height: 40px;
 }
 .hero button {
   margin-top: 10px;
+  height: 40px;
 }
