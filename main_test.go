@@ -12,7 +12,8 @@ import (
 const NoSparklesMessage string = "No sparkles yet"
 
 func TestWhenThereAreNoSparkles(t *testing.T) {
-	router := setupRouter()
+	sparkles := []Sparkle{}
+	router := setupRouter(&sparkles)
 
 	response := httptest.NewRecorder()
 	request, _ := http.NewRequest("GET", "/sparkles.html", nil)
@@ -23,7 +24,8 @@ func TestWhenThereAreNoSparkles(t *testing.T) {
 }
 
 func TestWhenOneSparkleIsCreated(t *testing.T) {
-	router := setupRouter()
+	sparkles := []Sparkle{}
+	router := setupRouter(&sparkles)
 
 	response := httptest.NewRecorder()
 	request, _ := http.NewRequest("POST", "/sparkles", strings.NewReader("body=@monalisa+for+being+kind"))
