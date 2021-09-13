@@ -9,13 +9,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type User struct {
-	Login string
-}
-
 type Sparkle struct {
-	Sparklee User
-	Reason   string
+	Sparklee string `json:"sparklee"`
+	Reason   string `json:"reason"`
 }
 
 type InMemoryDatabase struct {
@@ -30,17 +26,13 @@ func squish(item string) string {
 	return strings.Trim(item, " ")
 }
 
-func NewUser(name string) User {
-	return User{Login: name}
-}
-
 func NewSparkle(body string) Sparkle {
 	items := strings.SplitAfterN(body, " ", 2)
 	username := squish(items[0])
 	reason := squish(items[1])
 
 	return Sparkle{
-		Sparklee: NewUser(username),
+		Sparklee: username,
 		Reason:   reason,
 	}
 }
@@ -53,14 +45,17 @@ func setupRouter() *gin.Engine {
 	router := gin.Default()
 	router.LoadHTMLGlob("views/**/*")
 	router.Use(static.Serve("/", static.LocalFile("./public", true)))
+
 	router.GET("/sparkles.html", func(context *gin.Context) {
 		context.HTML(http.StatusOK, "sparkles/index.tmpl", gin.H{
 			"sparkles": db.Sparkles,
 		})
 	})
+
 	router.GET("/sparkles.json", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"sparkles": db.Sparkles})
 	})
+
 	router.POST("/sparkles", func(context *gin.Context) {
 		db.Save(NewSparkle(context.PostForm("body")))
 		context.Redirect(http.StatusFound, "/")
