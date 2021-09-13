@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -e
+
+HOST=${HOST:-http://localhost:8080}
+curl -s "$HOST/sparkles.json"
