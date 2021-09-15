@@ -3,7 +3,8 @@
 set -e
 
 if [ "$#" -lt 2 ]; then
-  echo "Usage: $0 <message>"
+  echo "Usage: $0 @<username> <reason>"
+  echo "e.g: $0 @monalisa for helping me with my homework!"
   exit 1
 fi
 

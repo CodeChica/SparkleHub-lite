@@ -15,11 +15,11 @@ func TestServer(t *testing.T) {
 	t.Run("GET /sparkles.html", func(t *testing.T) {
 		t.Run("when there are no sparkles", func(t *testing.T) {
 			sparkles := []Sparkle{}
-			router := setupRouter(&sparkles)
+			server := NewServer(&sparkles)
 
 			response := httptest.NewRecorder()
 			request, _ := http.NewRequest("GET", "/sparkles.html", nil)
-			router.ServeHTTP(response, request)
+			server.ServeHTTP(response, request)
 
 			assert.Equal(t, 200, response.Code)
 			assert.Contains(t, response.Body.String(), NoSparklesMessage)
@@ -32,11 +32,11 @@ func TestServer(t *testing.T) {
 					Reason:   "for being kind",
 				},
 			}
-			router := setupRouter(&sparkles)
+			server := NewServer(&sparkles)
 
 			response := httptest.NewRecorder()
 			request, _ := http.NewRequest("GET", "/sparkles.html", nil)
-			router.ServeHTTP(response, request)
+			server.ServeHTTP(response, request)
 
 			assert.Equal(t, 200, response.Code)
 			assert.NotContains(t, response.Body.String(), NoSparklesMessage)
@@ -47,12 +47,12 @@ func TestServer(t *testing.T) {
 	t.Run("POST /sparkles", func(t *testing.T) {
 		t.Run("with valid data", func(t *testing.T) {
 			sparkles := []Sparkle{}
-			router := setupRouter(&sparkles)
+			server := NewServer(&sparkles)
 
 			response := httptest.NewRecorder()
 			request, _ := http.NewRequest("POST", "/sparkles", strings.NewReader("body=@monalisa+for+being+kind"))
 			request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-			router.ServeHTTP(response, request)
+			server.ServeHTTP(response, request)
 
 			assert.Equal(t, 302, response.Code)
 			assert.Equal(t, 1, len(sparkles))
@@ -64,12 +64,12 @@ func TestServer(t *testing.T) {
 
 		t.Run("with invalid data", func(t *testing.T) {
 			sparkles := []Sparkle{}
-			router := setupRouter(&sparkles)
+			server := NewServer(&sparkles)
 
 			response := httptest.NewRecorder()
 			request, _ := http.NewRequest("POST", "/sparkles", strings.NewReader("invalid"))
 			request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-			router.ServeHTTP(response, request)
+			server.ServeHTTP(response, request)
 
 			assert.Equal(t, 422, response.Code)
 		})
