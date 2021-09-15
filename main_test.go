@@ -61,5 +61,17 @@ func TestServer(t *testing.T) {
 			assert.Equal(t, "@monalisa", sparkle.Sparklee)
 			assert.Equal(t, "for being kind", sparkle.Reason)
 		})
+
+		t.Run("with invalid data", func(t *testing.T) {
+			sparkles := []Sparkle{}
+			router := setupRouter(&sparkles)
+
+			response := httptest.NewRecorder()
+			request, _ := http.NewRequest("POST", "/sparkles", strings.NewReader("invalid"))
+			request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+			router.ServeHTTP(response, request)
+
+			assert.Equal(t, 422, response.Code)
+		})
 	})
 }

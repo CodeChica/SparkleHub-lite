@@ -19,12 +19,15 @@ type Sparkle struct {
 	Reason   string `json:"reason"`
 }
 
-func NewSparkle(body string) Sparkle {
+func NewSparkle(body string) *Sparkle {
 	items := strings.SplitAfterN(body, " ", 2)
+	if len(items) != 2 {
+		return nil
+	}
 	username := Squish(items[0])
 	reason := Squish(items[1])
 
-	return Sparkle{
+	return &Sparkle{
 		Sparklee: username,
 		Reason:   reason,
 	}
@@ -46,9 +49,13 @@ func setupRouter(sparkles *[]Sparkle) *gin.Engine {
 
 	router.POST("/sparkles", func(context *gin.Context) {
 		sparkle := NewSparkle(context.PostForm("body"))
-		*sparkles = append(*sparkles, sparkle)
+		if sparkle != nil {
+			*sparkles = append(*sparkles, *sparkle)
 
-		context.Redirect(http.StatusFound, "/")
+			context.Redirect(http.StatusFound, "/")
+		} else {
+			context.String(http.StatusUnprocessableEntity, "")
+		}
 	})
 	return router
 }
