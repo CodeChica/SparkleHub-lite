@@ -23,5 +23,4 @@
     "ms-vscode-remote.remote-containers"
   ],
   "forwardPorts": ["8080"],
-  "postCreateCommand": "sh script/server",
 }
