@@ -23,8 +23,8 @@ func NewServer(sparkles *[]Sparkle) *gin.Engine {
 	})
 
 	router.POST("/sparkles", func(context *gin.Context) {
-		sparkle := NewSparkle(context.PostForm("body"))
-		if sparkle != nil {
+		sparkle, err := NewSparkle(context.PostForm("body"))
+		if err == nil {
 			*sparkles = append(*sparkles, *sparkle)
 
 			context.Redirect(http.StatusFound, "/")

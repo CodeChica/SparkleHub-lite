@@ -1,22 +1,41 @@
 package main
 
-import "strings"
+import (
+	"errors"
+	"regexp"
+)
 
 type Sparkle struct {
 	Sparklee string `json:"sparklee"`
 	Reason   string `json:"reason"`
 }
 
-func NewSparkle(body string) *Sparkle {
-	items := strings.SplitAfterN(body, " ", 2)
-	if len(items) != 2 {
-		return nil
+func parse(body string) (string, string, error) {
+
+	if len(body) == 0 {
+		return "", "", errors.New("body is empty")
 	}
-	username := strings.Trim(items[0], " ")
-	reason := strings.Trim(items[1], " ")
+
+	regex := regexp.MustCompile(`\A\s*(?P<username>@\w+)\s+(?P<reason>.+)\z`)
+	matches := regex.FindStringSubmatch(body)
+
+	if len(matches) == 0 {
+		return "", "", errors.New("body is invalid")
+	}
+
+	username := matches[regex.SubexpIndex("username")]
+	reason := matches[regex.SubexpIndex("reason")]
+	return username, reason, nil
+}
+
+func NewSparkle(body string) (*Sparkle, error) {
+	username, reason, err := parse(body)
+	if err != nil {
+		return nil, err
+	}
 
 	return &Sparkle{
 		Sparklee: username,
 		Reason:   reason,
-	}
+	}, nil
 }
