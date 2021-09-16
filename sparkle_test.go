@@ -28,7 +28,7 @@ func TestSparkle(t *testing.T) {
 			assert.Nil(t, sparkle)
 			assert.NotNil(t, err)
 			if err != nil {
-				assert.Equal(t, "body is empty", err.Error())
+				assert.Equal(t, "sparkle is empty", err.Error())
 			}
 		})
 
@@ -38,7 +38,17 @@ func TestSparkle(t *testing.T) {
 			assert.Nil(t, sparkle)
 			assert.NotNil(t, err)
 			if err != nil {
-				assert.Equal(t, "body is invalid", err.Error())
+				assert.Equal(t, "sparkle is invalid", err.Error())
+			}
+		})
+
+		t.Run("without a username", func(t *testing.T) {
+			sparkle, err := NewSparkle("for helping me with my homework")
+
+			assert.Nil(t, sparkle)
+			assert.NotNil(t, err)
+			if err != nil {
+				assert.Equal(t, "sparkle is invalid", err.Error())
 			}
 		})
 	})
