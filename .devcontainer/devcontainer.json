@@ -20,7 +20,6 @@
     "github.vscode-pull-request-github",
     "ms-azuretools.vscode-docker",
     "github.github-vscode-theme",
-    "ms-vsliveshare.vsliveshare",
     "ms-vscode-remote.remote-containers"
   ],
   "forwardPorts": ["8080"],
