@@ -15,12 +15,16 @@ for the web application. A live version of this application can be found
 
 ## HTTP API
 
-### POST /sparkles
+### POST /sparkles.json
 
 Use this endpoint to create a new sparkle.
 
 ```bash
-モ curl http://localhost:8080/sparkles -d 'body=@you+for+working+hard'
+$ ./script/sparkle @monalisa for helping me with my project!
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+{"reason":"for helping me with my homework","sparklee":"@monalisa"}
 ```
 
 ### GET /sparkles.json
@@ -28,14 +32,12 @@ Use this endpoint to create a new sparkle.
 Use this endpoint to get a list of all the sparkles.
 
 ```bash
-モ curl http://localhost:8080/sparkles.json | jq '.'
+$ ./script/sparkles | jq '.'
 {
   "sparkles": [
     {
-      "Sparklee": {
-        "Name": "@you"
-      },
-      "Reason": "for working hard"
+      "sparklee": "@monalisa",
+      "reason": "for helping me with my project!"
     }
   ]
 }
