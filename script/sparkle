@@ -9,5 +9,4 @@ if [ "$#" -lt 2 ]; then
 fi
 
 HOST=${HOST:-http://localhost:8080}
-body="$(echo "$@" | sed 's/ /+/g')"
-curl -i -s "$HOST/sparkles" -d "body=$body"
+curl -i -s "$HOST/sparkles.json" -d "{\"body\":\"$*\"}"
