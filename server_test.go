@@ -92,4 +92,43 @@ func TestServer(t *testing.T) {
 			assert.Equal(t, 422, response.Code)
 		})
 	})
+
+	t.Run("POST /sparkles.json", func(t *testing.T) {
+		t.Run("with valid data", func(t *testing.T) {
+			sparkles := []Sparkle{}
+			server := NewServer(&sparkles)
+
+			response := httptest.NewRecorder()
+			request, _ := http.NewRequest("POST", "/sparkles.json", strings.NewReader(`{"body":"@monalisa for being kind"}`))
+			request.Header.Set("Content-Type", "application/json")
+			server.ServeHTTP(response, request)
+
+			assert.Equal(t, 201, response.Code)
+			assert.Equal(t, 1, len(sparkles))
+
+			var data Sparkle
+			err := json.NewDecoder(response.Body).Decode(&data)
+			t.Logf("Response: %v", data)
+
+			assert.Equal(t, nil, err)
+			assert.Equal(t, "@monalisa", data.Sparklee)
+			assert.Equal(t, "for being kind", data.Reason)
+
+			sparkle := sparkles[0]
+			assert.Equal(t, "@monalisa", sparkle.Sparklee)
+			assert.Equal(t, "for being kind", sparkle.Reason)
+		})
+
+		t.Run("with invalid data", func(t *testing.T) {
+			sparkles := []Sparkle{}
+			server := NewServer(&sparkles)
+
+			response := httptest.NewRecorder()
+			request, _ := http.NewRequest("POST", "/sparkles.json", strings.NewReader(`{"body":"invalid"}`))
+			request.Header.Set("Content-Type", "application/json")
+			server.ServeHTTP(response, request)
+
+			assert.Equal(t, 422, response.Code)
+		})
+	})
 }

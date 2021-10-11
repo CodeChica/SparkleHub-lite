@@ -5,30 +5,36 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>SparkleHub</title>
     <link href="/application.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="/application.js"></script>
   </head>
   <body>
-    <main>
+    <main id="app">
       <div class="hero text-center">
         <p class="hero__calloutPrimary">Show your gratitude</p>
-        <p class="hero__calloutSecondary">
-          Sparkle  ✨ your peers to let them know you appreciate their work.
-        </p>
+        <p class="hero__calloutSecondary">Sparkle  ✨ others to show your appreciation.</p>
 
-        <form action="/sparkles" method="post">
+        <form v-on:submit.prevent="submitSparkle">
           <label for="body">/sparkle</label>
-          <input
-            id="body"
-            name="body"
-            placeholder="@monalisa for helping me with my project!"
-            type="text"
-            />
-          <button type="submit" class="block center">
-            ✨ Sparkle
-          </button>
+          <input id="body" placeholder="@monalisa for helping me with my project!" type="text" v-model="sparkle" />
+          <button type="button" class="block center" v-on:click.stop="submitSparkle">✨ Sparkle</button>
         </form>
       </div>
       <div id="sparkles-list" class="container"></div>
+      <div class="container">
+        <div class="row">
+          <div class="column-12">
+            <h3 class="text-center">{{ heading }}</h3>
+          </div>
+        </div>
+        <div class="row" v-for="sparkle in recentSparkles">
+          <div class="column-12">
+            <p class="text-center">
+              <span class="font-heavy">{{ sparkle.sparklee }}</span> {{ sparkle.reason }}
+            </p>
+          </div>
+        </div>
+      </div>
     </main>
     <footer class="container">
       <div class="row">

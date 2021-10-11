@@ -1,41 +1,49 @@
-class ContentLoaderController {
-  constructor(elementId, url, refreshInterval = 1000) {
-    this.element = document.querySelector(elementId);
-    this.url = url;
-    this.reload()
-    this.start(refreshInterval);
-  }
-
-  start(refreshInterval) {
-    if (this.hasStarted())
-      return
-
-    this.intervalId = setInterval(() => this.reload(), refreshInterval);
-  }
-
-  hasStarted() {
-    return this.intervalId;
-  }
-
-  reload() {
-    fetch(this.url)
-      .then((response) => response.text())
-      .then((html) => this.element.innerHTML = html);
-  }
-
-  stop() {
-    if (!this.hasStarted())
-      return
-
-    clearInterval(this.intervalId);
-    this.intervalId = null;
-  }
-}
-
 document.addEventListener('DOMContentLoaded', (event) => {
-  window.sparkles = new ContentLoaderController('#sparkles-list', "/sparkles.html")
-});
-
-document.addEventListener('unload', (event) => {
-  window.sparkles.stop();
+  window.app = new Vue({
+    el: '#app',
+    data: {
+      intervalId: null,
+      sparkle: "",
+      sparkles: []
+    },
+    created: function() {
+      this.reload();
+      this.intervalId = setInterval(() => this.reload(), 5000);
+    },
+    destroyed: function() {
+      if (this.intervalId)
+        clearInterval(this.intervalId);
+      this.intervalId = null;
+    },
+    computed: {
+      heading: function() {
+        return this.sparkles.length == 0 ? "No Sparkles Yet" : "Recent Sparkles";
+      },
+      recentSparkles: function() {
+        return this.sparkles.reverse();
+      }
+    },
+    methods: {
+      reload: function() {
+        fetch("/sparkles.json")
+          .then((response) => response.json())
+          .then((data) => this.sparkles = data.sparkles);
+      },
+      submitSparkle: function() {
+        fetch("/sparkles.json", {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          headers: { "Content-Type": "application/json" },
+          redirect: "follow",
+          body: JSON.stringify({ body: this.sparkle })
+        })
+        .then((response) => response.json())
+        .then((json) => {
+          this.sparkles.push(json);
+          this.sparkle = "";
+        })
+      }
+    }
+  })
 });
