@@ -66,6 +66,9 @@ func TestServer(t *testing.T) {
 			server.ServeHTTP(response, request)
 
 			assert.Equal(t, 422, response.Code)
+			var got map[string]string
+			assert.Nil(t, json.NewDecoder(response.Body).Decode(&got))
+			assert.NotEmpty(t, got["message"])
 		})
 	})
 }

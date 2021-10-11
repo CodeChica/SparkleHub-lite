@@ -21,17 +21,20 @@ func NewServer(sparkles *[]Sparkle) *gin.Engine {
 		var form map[string]string
 		if err := context.BindJSON(&form); err != nil {
 			context.String(http.StatusUnprocessableEntity, err.Error())
+			return
+		}
+
+		sparkle, err := NewSparkle(form["body"])
+		if err == nil {
+			*sparkles = append(*sparkles, *sparkle)
+			context.JSON(http.StatusCreated, gin.H{
+				"sparklee": sparkle.Sparklee,
+				"reason":   sparkle.Reason,
+			})
 		} else {
-			sparkle, err := NewSparkle(form["body"])
-			if err == nil {
-				*sparkles = append(*sparkles, *sparkle)
-				context.JSON(http.StatusCreated, gin.H{
-					"reason":   sparkle.Reason,
-					"sparklee": sparkle.Sparklee,
-				})
-			} else {
-				context.String(http.StatusUnprocessableEntity, err.Error())
-			}
+			context.JSON(http.StatusUnprocessableEntity, gin.H{
+				"message": err.Error(),
+			})
 		}
 	})
 

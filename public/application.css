@@ -134,3 +134,6 @@ ul {
   margin-top: 10px;
   height: 40px;
 }
+span.error {
+  color: red;
+}

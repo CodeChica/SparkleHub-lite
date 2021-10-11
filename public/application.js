@@ -3,8 +3,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     el: '#app',
     data: {
       intervalId: null,
+      isSending: false,
+      errorMessage: "",
       sparkle: "",
-      sparkles: []
+      sparkles: [],
     },
     created: function() {
       this.reload();
@@ -21,7 +23,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       recentSparkles: function() {
         return this.sparkles.reverse();
-      }
+      },
+      isDisabled: function() {
+        return this.isSending || !this.isValid();
+      },
+    },
+    watch: {
+      sparkle: function() {
+        this.errorMessage = "";
+      },
     },
     methods: {
       reload: function() {
@@ -29,7 +39,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
           .then((response) => response.json())
           .then((data) => this.sparkles = data.sparkles);
       },
+      isValid: function() {
+        return this.sparkle.length > 0;
+      },
       submitSparkle: function() {
+        this.isSending = true;
         fetch("/sparkles.json", {
           method: "POST",
           mode: "cors",
@@ -37,12 +51,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
           headers: { "Content-Type": "application/json" },
           redirect: "follow",
           body: JSON.stringify({ body: this.sparkle })
-        })
-        .then((response) => response.json())
-        .then((json) => {
-          this.sparkles.push(json);
-          this.sparkle = "";
-        })
+        }).then((response) => {
+          response.json().then((json) => {
+            this.isSending = false;
+            if (response.ok) {
+              this.sparkles.push(json);
+              this.sparkle = "";
+            } else {
+              this.errorMessage = json["message"];
+            }
+          })
+        }).catch((error) => console.error(error));
       }
     }
   })
