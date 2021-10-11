@@ -11,13 +11,13 @@
   <body>
     <main id="app">
       <div class="hero text-center">
-        <p class="hero__calloutPrimary">Show your gratitude</p>
-        <p class="hero__calloutSecondary">Sparkle  ✨ others to show your appreciation.</p>
+        <p class="hero__calloutPrimary">✨Hub</p>
+        <p class="hero__calloutSecondary">Sparkle someone with gratitude</p>
         <span class="error">{{errorMessage}}</span>
         <form v-on:submit.prevent="submitSparkle">
           <label for="body">/sparkle</label>
           <input id="body" placeholder="@monalisa for helping me with my project!" type="text" v-model="sparkle" />
-          <button type="button" class="block center" v-on:click.stop="submitSparkle" v-bind:disabled="isDisabled">✨ Sparkle</button>
+          <button type="button" v-on:click.stop="submitSparkle" v-bind:disabled="isDisabled">💖</button>
         </form>
       </div>
       <div id="sparkles-list" class="container"></div>
@@ -39,7 +39,7 @@
     <footer class="container">
       <div class="row">
         <div class="column-12">
-          <p class="text-center">SparkleHub ✨</p>
+          <p class="text-center">SparkleHub✨</p>
         </div>
       </div>
     </footer>

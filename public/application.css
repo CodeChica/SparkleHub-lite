@@ -108,7 +108,7 @@ ul {
 .hero {
   background: linear-gradient(114.95deg, #24292E 30.38%, #781084 120.55%);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
-  padding: 96px 0 200px 0;
+  padding: 8px 0 96px 0;
 }
 .hero .hero__calloutPrimary {
   color: white;
@@ -116,6 +116,7 @@ ul {
   font-weight: 600;
   letter-spacing: -2px;
   line-height: 72px;
+  margin-bottom: 0px;
 }
 .hero .hero__calloutSecondary {
   color: #FFFFFF;
@@ -127,12 +128,12 @@ ul {
   left: 20px;
 }
 .hero input[type=text] {
-  width: 65%;
+  width: 72%;
   height: 40px;
 }
 .hero button {
-  margin-top: 10px;
   height: 40px;
+  padding: 8px;
 }
 span.error {
   color: red;
