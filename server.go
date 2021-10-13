@@ -1,42 +1,59 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
-
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/contrib/static"
-	"github.com/gin-gonic/gin"
 )
 
-func NewServer(sparkles *[]Sparkle) *gin.Engine {
-	router := gin.Default()
-	router.Use(static.Serve("/", static.LocalFile("./public", true)))
-	router.Use(cors.Default())
+type Server struct {
+	sparkles *[]Sparkle
+}
 
-	router.GET("/sparkles.json", func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{"sparkles": sparkles})
-	})
+func NewServer(sparkles *[]Sparkle) Server {
+	return Server{
+		sparkles: sparkles,
+	}
+}
 
-	router.POST("/sparkles.json", func(context *gin.Context) {
-		var form map[string]string
-		if err := context.BindJSON(&form); err != nil {
-			context.String(http.StatusUnprocessableEntity, err.Error())
-			return
-		}
+func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-		sparkle, err := NewSparkle(form["body"])
+	switch r.Method {
+	case "GET":
+		w.Header().Set("Content-Type", "application/json")
+		data, err := json.Marshal(s.sparkles)
 		if err == nil {
-			*sparkles = append(*sparkles, *sparkle)
-			context.JSON(http.StatusCreated, gin.H{
-				"sparklee": sparkle.Sparklee,
-				"reason":   sparkle.Reason,
-			})
+			w.WriteHeader(http.StatusOK)
+			w.Write(data)
 		} else {
-			context.JSON(http.StatusUnprocessableEntity, gin.H{
-				"message": err.Error(),
-			})
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(fmt.Sprintf(`{"error":"%s"}`, err)))
 		}
-	})
-
-	return router
+	case "POST":
+		var params map[string]string
+		err := json.NewDecoder(r.Body).Decode(&params)
+		if err == nil {
+			sparkle, err := NewSparkle(params["body"])
+			if err == nil {
+				*s.sparkles = append(*s.sparkles, *sparkle)
+				w.WriteHeader(http.StatusCreated)
+				data, err := json.Marshal(sparkle)
+				if err == nil {
+					w.Write(data)
+				} else {
+					w.WriteHeader(http.StatusUnprocessableEntity)
+					w.Write([]byte(fmt.Sprintf(`{"error":"%s"}`, err)))
+				}
+			} else {
+				w.WriteHeader(http.StatusUnprocessableEntity)
+				w.Write([]byte(fmt.Sprintf(`{"error":"%s"}`, err)))
+			}
+		} else {
+			w.WriteHeader(http.StatusUnprocessableEntity)
+			w.Write([]byte(fmt.Sprintf(`{"error":"%s"}`, err)))
+		}
+	default:
+		w.Write([]byte(`{"error":"unknown"}`))
+	}
 }

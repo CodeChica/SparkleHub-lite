@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"net/http"
 	"os"
 )
 
@@ -19,6 +21,12 @@ func listenAddress() string {
 
 func main() {
 	sparkles := []Sparkle{}
+
 	server := NewServer(&sparkles)
-	log.Fatal(server.Run(listenAddress()))
+	http.Handle("/", http.FileServer(http.Dir("public")))
+	http.HandleFunc("/sparkles.json", server.ServeHTTP)
+
+	address := listenAddress()
+	fmt.Printf("Listening and serving HTTP on http://%s\n", address)
+	log.Fatal(http.ListenAndServe(address, nil))
 }

@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       reload: function() {
         fetch("/sparkles.json")
           .then((response) => response.json())
-          .then((data) => this.sparkles = data.sparkles);
+          .then((data) => this.sparkles = data)
+          .catch((error) => console.error(error));
       },
       isValid: function() {
         return this.sparkle.length > 0;
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
               this.sparkles.push(json);
               this.sparkle = "";
             } else {
-              this.errorMessage = json["message"];
+              this.errorMessage = json["error"];
             }
           })
         }).catch((error) => console.error(error));
