@@ -1,0 +1,50 @@
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.row {
+  position: relative;
+  width: 100%;
+}
+.row [class^="col"] {
+  float: left;
+  margin: 0.5rem 2%;
+  min-height: 0.125rem;
+}
+.column-1,
+.column-2,
+.column-3,
+.column-4,
+.column-5,
+.column-6,
+.column-7,
+.column-8,
+.column-9,
+.column-10,
+.column-11,
+.column-12 {
+  width: 96%;
+}
+
+@media only screen and (min-width: 33.75em) { .container { width: 80%; } }
+@media only screen and (min-width: 45em) {
+  .column-1 { width: 4.33%; }
+  .column-2 { width: 12.66%; }
+  .column-3 { width: 21%; }
+  .column-4 { width: 29.33%; }
+  .column-5 { width: 37.66%; }
+  .column-6 { width: 46%; }
+  .column-7 { width: 54.33%; }
+  .column-8 { width: 62.66%; }
+  .column-9 { width: 71%; }
+  .column-10 { width: 79.33%; }
+  .column-11 { width: 87.66%; }
+  .column-12 { width: 96%; }
+}
+@media only screen and (min-width: 60em) {
+  .container {
+    max-width: 60rem;
+    width: 75%;
+  }
+}

@@ -1,0 +1,38 @@
+.error { color: red; }
+.font-heavy { font-weight: 700; }
+.font-light { font-weight: 300; }
+.font-regular { font-weight: 400; }
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.hero {
+  background: linear-gradient(114.95deg, #24292E 30.38%, #781084 120.55%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
+  padding: 8px 0 96px 0;
+}
+.hero .hero__primary {
+  color: white;
+  font-size: 72px;
+  font-weight: 600;
+  letter-spacing: -2px;
+  line-height: 72px;
+  margin-bottom: 0px;
+}
+.hero .hero__secondary {
+  color: #FFFFFF;
+  opacity: 0.6;
+}
+.hero label {
+  color: #FFFFFF;
+  top: 10px;
+  left: 20px;
+}
+.hero input[type=text] {
+  width: 72%;
+  height: 40px;
+}
+.hero button {
+  height: 40px;
+  padding: 8px;
+}

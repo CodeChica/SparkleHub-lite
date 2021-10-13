@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>SparkleHub</title>
-    <link href="/application.css" rel="stylesheet" />
+    <link href="/css/reset.css" rel="stylesheet" />
+    <link href="/css/grid.css" rel="stylesheet" />
+    <link href="/css/application.css" rel="stylesheet" />
     <script src="/vendor/vue.js"></script>
     <script src="/application.js"></script>
   </head>
   <body>
     <main id="app">
       <div class="hero text-center">
-        <p class="hero__calloutPrimary">✨Hub</p>
-        <p class="hero__calloutSecondary">Sparkle someone with gratitude</p>
+        <p class="hero__primary">✨Hub</p>
+        <p class="hero__secondary">Sparkle someone with gratitude</p>
         <span class="error">{{errorMessage}}</span>
         <form v-on:submit.prevent="submitSparkle">
           <label for="body">/sparkle</label>
@@ -20,7 +22,6 @@
           <button type="button" v-on:click.stop="submitSparkle" v-bind:disabled="isDisabled">💖</button>
         </form>
       </div>
-      <div id="sparkles-list" class="container"></div>
       <div class="container">
         <div class="row">
           <div class="column-12">
