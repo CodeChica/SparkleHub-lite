@@ -22,9 +22,12 @@ Use this endpoint to create a new sparkle.
 ```bash
 $ ./script/sparkle @monalisa for helping me with my project!
 HTTP/1.1 201 Created
+Access-Control-Allow-Origin: *
 Content-Type: application/json
+Date: Wed, 13 Oct 2021 15:52:49 GMT
+Content-Length: 68
 
-{"reason":"for helping me with my homework","sparklee":"@monalisa"}
+{"sparklee":"@monalisa","reason":"for helping me with my project!"}
 ```
 
 ### GET /sparkles.json
@@ -33,14 +36,12 @@ Use this endpoint to get a list of all the sparkles.
 
 ```bash
 $ ./script/sparkles | jq '.'
-{
-  "sparkles": [
-    {
-      "sparklee": "@monalisa",
-      "reason": "for helping me with my project!"
-    }
-  ]
-}
+[
+  {
+    "sparklee": "@monalisa",
+    "reason": "for helping me with my project!"
+  }
+]
 ```
 
 [golang]: https://golang.org/doc/install
