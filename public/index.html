@@ -15,11 +15,11 @@
       <div class="hero text-center">
         <p class="hero__primary">✨Hub</p>
         <p class="hero__secondary">Sparkle someone with gratitude</p>
-        <span class="error">{{errorMessage}}</span>
+        <span class="error">{{ errorMessage }}</span>
         <form v-on:submit.prevent="submitSparkle">
           <label for="body">/sparkle</label>
           <input id="body" placeholder="@monalisa for helping me with my project!" type="text" v-model="sparkle" />
-          <button type="button" v-on:click.stop="submitSparkle" v-bind:disabled="isDisabled">💖</button>
+          <button type="submit" v-bind:disabled="isDisabled">💖</button>
         </form>
       </div>
       <div class="container">
