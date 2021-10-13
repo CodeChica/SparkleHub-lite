@@ -22,14 +22,14 @@ func NewSparkle(body string) (*Sparkle, error) {
 	}, nil
 }
 
+var regex = regexp.MustCompile(`\A\s*(?P<username>@\w+)\s+(?P<reason>.+)\z`)
+
 func parse(body string) (string, string, error) {
 	if len(body) == 0 {
 		return "", "", errors.New("sparkle is empty")
 	}
 
-	regex := regexp.MustCompile(`\A\s*(?P<username>@\w+)\s+(?P<reason>.+)\z`)
 	matches := regex.FindStringSubmatch(body)
-
 	if len(matches) == 0 {
 		return "", "", errors.New("sparkle is invalid")
 	}

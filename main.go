@@ -12,6 +12,6 @@ func main() {
 	http.Handle("/", http.FileServer(http.Dir("public")))
 	http.HandleFunc("/sparkles.json", server.ServeHTTP)
 
-	fmt.Printf("Listening and serving HTTP on http://%s\n", server.address)
+	fmt.Printf("Listening and serving HTTP on `%s`\n", server.address)
 	log.Fatal(http.ListenAndServe(server.address, nil))
 }
