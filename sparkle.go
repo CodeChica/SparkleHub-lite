@@ -10,31 +10,25 @@ type Sparkle struct {
 	Reason   string `json:"reason"`
 }
 
-func NewSparkle(body string) (*Sparkle, error) {
-	username, reason, err := parse(body)
-	if err != nil {
-		return nil, err
+var SparkleRegex = regexp.MustCompile(`\A\s*(?P<sparklee>@\w+)\s+(?P<reason>.+)\z`)
+var SparkleeIndex = SparkleRegex.SubexpIndex("sparklee")
+var ReasonIndex = SparkleRegex.SubexpIndex("reason")
+
+var SparkleIsEmpty = errors.New("Sparkle is empty")
+var SparkleIsInvalid = errors.New("Sparkle is invalid")
+
+func NewSparkle(text string) (*Sparkle, error) {
+	if len(text) == 0 {
+		return nil, SparkleIsEmpty
+	}
+
+	matches := SparkleRegex.FindStringSubmatch(text)
+	if len(matches) == 0 {
+		return nil, SparkleIsInvalid
 	}
 
 	return &Sparkle{
-		Sparklee: username,
-		Reason:   reason,
+		Sparklee: matches[SparkleeIndex],
+		Reason:   matches[ReasonIndex],
 	}, nil
-}
-
-var regex = regexp.MustCompile(`\A\s*(?P<username>@\w+)\s+(?P<reason>.+)\z`)
-
-func parse(body string) (string, string, error) {
-	if len(body) == 0 {
-		return "", "", errors.New("sparkle is empty")
-	}
-
-	matches := regex.FindStringSubmatch(body)
-	if len(matches) == 0 {
-		return "", "", errors.New("sparkle is invalid")
-	}
-
-	username := matches[regex.SubexpIndex("username")]
-	reason := matches[regex.SubexpIndex("reason")]
-	return username, reason, nil
 }

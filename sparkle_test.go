@@ -24,7 +24,7 @@ func TestSparkle(t *testing.T) {
 			assert.Nil(t, sparkle)
 			assert.NotNil(t, err)
 			if err != nil {
-				assert.Equal(t, "sparkle is empty", err.Error())
+				assert.Equal(t, "Sparkle is empty", err.Error())
 			}
 		})
 
@@ -34,7 +34,7 @@ func TestSparkle(t *testing.T) {
 			assert.Nil(t, sparkle)
 			assert.NotNil(t, err)
 			if err != nil {
-				assert.Equal(t, "sparkle is invalid", err.Error())
+				assert.Equal(t, "Sparkle is invalid", err.Error())
 			}
 		})
 
@@ -44,7 +44,7 @@ func TestSparkle(t *testing.T) {
 			assert.Nil(t, sparkle)
 			assert.NotNil(t, err)
 			if err != nil {
-				assert.Equal(t, "sparkle is invalid", err.Error())
+				assert.Equal(t, "Sparkle is invalid", err.Error())
 			}
 		})
 	})
