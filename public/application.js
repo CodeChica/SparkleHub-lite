@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     },
     created: function() {
       this.reload();
-      this.intervalId = setInterval(() => this.reload(), 5000);
+      this.intervalId = setInterval(() => this.reload(), 30000);
     },
     destroyed: function() {
       if (this.intervalId)
