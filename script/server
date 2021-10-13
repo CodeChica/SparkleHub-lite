@@ -4,5 +4,4 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-export GIN_MODE="${GIN_MODE:-debug}"
 go run ./...

@@ -10,8 +10,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const NoSparklesMessage string = "No sparkles yet"
-
 func TestServer(t *testing.T) {
 	t.Run("GET /sparkles.json", func(t *testing.T) {
 		t.Run("with valid data", func(t *testing.T) {
