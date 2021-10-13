@@ -24,15 +24,26 @@
   opacity: 0.6;
 }
 .hero label {
-  color: #FFFFFF;
-  top: 10px;
-  left: 20px;
-}
-.hero input[type=text] {
-  width: 72%;
+  color: #000000;
+  position: absolute;
   height: 40px;
+  padding-top: 12px;
+  padding-left: 11px;
+}
+
+.hero input[type=text] {
+  border-radius: 6px;
+  height: 40px;
+  margin-bottom: 10px;
+  padding-left: 78px;
+  width: 72%;
 }
 .hero button {
+  background-color: rgb(44, 151, 75);
+  border-radius: 5px;
+  border: 0px;
+  color: #FFFFFF;
+  cursor: pointer;
   height: 40px;
   padding: 8px;
 }
