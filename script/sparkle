@@ -4,7 +4,7 @@ set -e
 
 if [ "$#" -lt 2 ]; then
   echo "Usage: $0 @<username> <reason>"
-  echo "e.g: $0 @monalisa for helping me with my homework!"
+  echo "e.g: $0 @spongebob for helping me with my krusty burger!"
   exit 1
 fi
 

@@ -3,22 +3,26 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>SparkleHub</title>
+    <title>SparkleMore</title>
     <link href="/css/reset.css" rel="stylesheet" />
     <link href="/css/grid.css" rel="stylesheet" />
     <link href="/css/application.css" rel="stylesheet" />
     <script src="/vendor/vue.js"></script>
     <script src="/application.js"></script>
+   <link href="/css/sparkles.css" rel="stylesheet" />
+    <style> 
+  
+  
   </head>
   <body>
     <main id="app">
       <div class="hero">
         <div class="container">
           <p class="hero__primary">Show your gratitude</p>
-          <p class="hero__secondary">Sparkle ✨ someone with gratitude</p>
+          <p class="hero__secondary">Sparkle someone with gratitude </p>
           <form v-on:submit.prevent="submitSparkle">
             <label for="body">/sparkle</label>
-            <input type="text" placeholder="@monalisa for helping me with my project!" v-model="sparkle" />
+            <input type="text" placeholder="@spongebob for helping me with my krusty burger!" v-model="sparkle" />
             <button type="submit" v-bind:disabled="isDisabled">✨ Sparkle</button>
           </form>
           <span class="error">{{ errorMessage }}</span>
@@ -39,6 +43,7 @@
         </div>
       </div>
     </main>
+    
     <footer class="container">
       <div class="row">
         <div class="column-12">
