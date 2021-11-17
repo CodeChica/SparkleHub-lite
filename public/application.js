@@ -44,7 +44,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return this.sparkle.length > 0;
       },
       startConfetti: function() {
-        let container = document.querySelector('.confetti-container')
+        let message = document.querySelector('#sparkle-sent-message');
+        message.classList.remove("hidden");
+        message.start();
+
+        let container = document.querySelector('.confetti-container');
 
         for(let index = 255; index >= 0; index--) {
           let div = document.createElement("div");
@@ -56,6 +60,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       removeConfetti: function() {
         let element = document.querySelector('.confetti-container')
+        let message = document.querySelector('#sparkle-sent-message');
+        message.classList.add("hidden");
 
         while (element.firstChild) {
           element.removeChild(element.firstChild);
