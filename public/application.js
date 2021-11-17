@@ -43,6 +43,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
       isValid: function() {
         return this.sparkle.length > 0;
       },
+      sparkleParty: function() {
+        let container = document.querySelector('.confetti-container')
+
+        for(let index = 255; index >= 0; index--) {
+          let div = document.createElement("div");
+          div.classList.add("confetti-" + index.toString())
+          container.appendChild(div);
+        }
+      },
       submitSparkle: function() {
         this.isSending = true;
         fetch("/sparkles.json", {
@@ -56,6 +65,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
           response.json().then((json) => {
             this.isSending = false;
             if (response.ok) {
+              this.sparkleParty();
               this.sparkles.push(json);
               this.sparkle = "";
             } else {

@@ -9,10 +9,7 @@
     <link href="/css/application.css" rel="stylesheet" />
     <script src="/vendor/vue.js"></script>
     <script src="/application.js"></script>
-   <link href="/css/sparkles.css" rel="stylesheet" />
-   
-  
-  
+    <link href="/css/sparkles.css" rel="stylesheet" />
   </head>
   <body>
     <main id="app">
@@ -28,6 +25,7 @@
           <span class="error">{{ errorMessage }}</span>
         </div>
       </div>
+      <div class="confetti-container"></div>
       <div class="container">
         <div class="row">
           <div class="column-12">
@@ -37,13 +35,12 @@
         <div class="row" v-for="sparkle in recentSparkles">
           <div class="column-12">
             <p class="text-center">
-              <span class="font-heavy">{{ sparkle.sparklee }}</span> {{ sparkle.reason }}
+            <span class="font-heavy">{{ sparkle.sparklee }}</span> {{ sparkle.reason }}
             </p>
           </div>
         </div>
       </div>
     </main>
-    
     <footer class="container">
       <div class="row">
         <div class="column-12">
