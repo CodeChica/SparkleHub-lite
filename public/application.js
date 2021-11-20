@@ -43,6 +43,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
       isValid: function() {
         return this.sparkle.length > 0;
       },
+      startConfetti: function() {
+        let message = document.querySelector('#sparkle-sent-message');
+        message.classList.remove("hidden");
+        message.start();
+
+        let container = document.querySelector('.confetti-container');
+
+        for(let index = 255; index >= 0; index--) {
+          let div = document.createElement("div");
+          div.classList.add("confetti-" + index.toString())
+          container.appendChild(div);
+        }
+
+        setTimeout(() => this.removeConfetti(), 12000);
+      },
+      removeConfetti: function() {
+        let element = document.querySelector('.confetti-container')
+        let message = document.querySelector('#sparkle-sent-message');
+        message.classList.add("hidden");
+
+        while (element.firstChild) {
+          element.removeChild(element.firstChild);
+        }
+      },
       submitSparkle: function() {
         this.isSending = true;
         fetch("/sparkles.json", {
@@ -56,6 +80,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
           response.json().then((json) => {
             this.isSending = false;
             if (response.ok) {
+              this.startConfetti();
               this.sparkles.push(json);
               this.sparkle = "";
             } else {
