@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     },
     computed: {
       heading: function() {
-        return this.sparkles.length == 0 ? "No Sparkles Yet" : "Recent Sparkles";
+        return this.sparkles.length == 0 ? "No Sparkles Sent" : "Recent Sparkles";
       },
       recentSparkles: function() {
         return this.sparkles.reverse();
