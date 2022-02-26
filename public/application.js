@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
       isDisabled: function() {
         return this.isSending || !this.isValid();
       },
+      classObject: function () {
+        return {
+          'text-dark': !this.isLightMode,
+          'text-light': this.isLightMode,
+        }
+      }
     },
     watch: {
       sparkle: function() {
@@ -43,6 +49,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       toggleTheme: function() {
         this.isLightMode = !this.isLightMode;
+        let body = document.querySelector('body');
+        if (this.isLightMode) {
+          body.classList.remove('dark');
+          body.classList.add('light');
+        } else {
+          body.classList.add('dark');
+          body.classList.remove('light');
+        }
       },
       isValid: function() {
         return this.sparkle.length > 0;

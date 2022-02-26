@@ -7,16 +7,28 @@
 .text-right { text-align: right; }
 .hidden { display: none; }
 
-body {
+.light {
   background-color: rgb(255, 255, 255);
 }
+
+.dark {
+  background-color: rgb(0, 0, 0);
+}
+
+.text-light {
+  color: rgb(255, 255, 255);
+}
+
+.text-dark {
+  color: rgb(0, 0 , 0);
+}
+
 .hero {
   background: linear-gradient(114.95deg, #f77199 30.38%, #f5b3e4 120.55%);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
   padding: 8px 0 96px 0;
 }
 .hero .hero__primary {
-  color: rgb(255, 255, 255);
   font-size: 72px;
   font-weight: 600;
   letter-spacing: -2px;
@@ -24,7 +36,6 @@ body {
   margin-bottom: 0px;
 }
 .hero .hero__secondary {
-  color: #ffffff;
   opacity: 0.6;
 }
 .hero label {
@@ -55,5 +66,13 @@ body {
 .btn-icon {
   font-size: 8em;
   border: none;
+
+}
+
+.btn-light {
   background-color: white;
+}
+
+.btn-dark {
+  background-color: black;
 }

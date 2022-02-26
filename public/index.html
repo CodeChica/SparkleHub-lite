@@ -15,8 +15,8 @@
     <main id="app">
       <div class="hero">
         <div class="container">
-          <p class="hero__primary">Show your gratitude</p>
-          <p class="hero__secondary">Sparkle someone with joy</p>
+          <p class="hero__primary" v-bind:class="classObject">Show your gratitude</p>
+          <p class="hero__secondary" v-bind:class="classObject">Sparkle someone with joy</p>
           <form v-on:submit.prevent="submitSparkle">
             <label for="body">/sparkle</label>
             <input type="text" placeholder="@spongebob for helping me with my krusty burger!" v-model="sparkle" />
@@ -44,8 +44,8 @@
       <div class="row">
         <div class="column-9">&nbsp;</div>
         <div class="column-3">
-          <button type="button" class="btn-icon" v-if="isLightMode" v-on:click="toggleTheme">🌑</button>
-          <button type="button" class="btn-icon" v-else="!isLightMode" v-on:click="toggleTheme">☀️</button>
+          <button type="button" class="btn-icon btn-light" v-if="isLightMode" v-on:click="toggleTheme">🌑</button>
+          <button type="button" class="btn-icon btn-dark" v-else="!isLightMode" v-on:click="toggleTheme">☀️</button>
         </div>
       </div>
     </main>
