@@ -51,3 +51,9 @@ body {
   height: 40px;
   padding: 8px;
 }
+
+.btn-icon {
+  font-size: 8em;
+  border: none;
+  background-color: white;
+}

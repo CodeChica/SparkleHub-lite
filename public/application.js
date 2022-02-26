@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     data: {
       intervalId: null,
       isSending: false,
+      isLightMode: true,
       errorMessage: "",
       sparkle: "",
       sparkles: [],
@@ -39,6 +40,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
           .then((response) => response.json())
           .then((data) => this.sparkles = data)
           .catch((error) => console.error(error));
+      },
+      toggleTheme: function() {
+        this.isLightMode = !this.isLightMode;
       },
       isValid: function() {
         return this.sparkle.length > 0;

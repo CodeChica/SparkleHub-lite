@@ -11,7 +11,7 @@
     <script src="/application.js"></script>
     <link href="/css/sparkles.css" rel="stylesheet" />
   </head>
-  <body>
+  <body class="dark">
     <main id="app">
       <div class="hero">
         <div class="container">
@@ -39,6 +39,13 @@
             <span class="font-heavy">{{ sparkle.sparklee }}</span> {{ sparkle.reason }}
             </p>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column-9">&nbsp;</div>
+        <div class="column-3">
+          <button type="button" class="btn-icon" v-if="isLightMode" v-on:click="toggleTheme">🌑</button>
+          <button type="button" class="btn-icon" v-else="!isLightMode" v-on:click="toggleTheme">☀️</button>
         </div>
       </div>
     </main>
