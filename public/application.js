@@ -4,13 +4,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     data: {
       intervalId: null,
       isSending: false,
-      isLightMode: true,
+      isLightMode: window.localStorage.getItem('isLightMode') != 'false',
       errorMessage: "",
       sparkle: "",
       sparkles: [],
     },
     created: function() {
       this.reload();
+      this.changeTheme(this.isLightMode);
       this.intervalId = setInterval(() => this.reload(), 30000);
     },
     destroyed: function() {
@@ -49,8 +50,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       toggleTheme: function() {
         this.isLightMode = !this.isLightMode;
+        window.localStorage.setItem('isLightMode', this.isLightMode);
+        this.changeTheme(this.isLightMode);
+      },
+      changeTheme: function(isLightMode) {
         let body = document.querySelector('body');
-        if (this.isLightMode) {
+        if (isLightMode) {
           body.classList.remove('dark');
           body.classList.add('light');
         } else {
