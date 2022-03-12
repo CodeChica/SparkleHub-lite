@@ -76,3 +76,8 @@
 .btn-dark {
   background-color: black;
 }
+
+.btn-img {
+  width: 128px;
+  border-radius: 96px;
+}

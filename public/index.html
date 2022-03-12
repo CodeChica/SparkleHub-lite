@@ -44,8 +44,14 @@
       <div class="row">
         <div class="column-9">&nbsp;</div>
         <div class="column-3">
-          <button type="button" class="btn-icon btn-light" v-if="isLightMode" v-on:click="toggleTheme">🌑</button>
-          <button type="button" class="btn-icon btn-dark" v-else="!isLightMode" v-on:click="toggleTheme">☀️</button>
+          <button type="button" class="btn-icon btn-light" style="font-size: 17px;" v-if="isLightMode" v-on:click="toggleTheme">
+            <img src="images/moon.jpg" class="btn-img" alt="Switch to Dark Mode" />
+            <span style="display: block;">Come to the Dark Side</span>
+          </button>
+          <button type="button" class="btn-icon btn-dark" style="font-size: 17px;" v-else="!isLightMode" v-on:click="toggleTheme">
+            <img src="images/sunrise.jpg" class="btn-img" alt="Switch to Light Mode" />
+            <span style="display: block;">Couldn't handle the dark side</span>
+          </button>
         </div>
       </div>
     </main>
