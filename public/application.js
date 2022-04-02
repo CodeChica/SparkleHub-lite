@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       },
       filteredSparkles: function() {
         if(this.username === ""){
-          return this.recentSparkles
+          return this.sparkles.reverse();
         }
         return this.recentSparkles.filter( s => s.sparklee === this.username)
       }
