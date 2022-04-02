@@ -13,8 +13,12 @@
   </head>
   <body>
     <main id="app">
-      <div class="hero">
-        <div class="container">
+      <div class="hero"> 
+        <div class="container">   
+            <form style="width: 55%; margin-left: 200px;" v-on:submit.prevent="searchSparkle">
+              <label for="body">/search</label>
+              <input type="text" placeholder="insert username e.g @spongebob" v-model="username" />
+            </form>
           <p class="hero__primary">Show your gratitude</p>
           <p class="hero__secondary">Sparkle someone with joy</p>
           <form v-on:submit.prevent="submitSparkle">
@@ -33,10 +37,10 @@
             <marquee id="sparkle-sent-message" class="hidden">Your Sparkle has been sent!</marquee>
           </div>
         </div>
-        <div class="row" v-for="sparkle in recentSparkles">
+        <div class="row" v-for="sparkle in filteredSparkles">
           <div class="column-12">
             <p class="text-center">
-            <span class="font-heavy">{{ sparkle.sparklee }}</span> {{ sparkle.reason }}
+            <span class="font-heavy" >{{ sparkle.sparklee }}</span> {{ sparkle.reason }}
             </p>
           </div>
         </div>
