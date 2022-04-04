@@ -6,9 +6,9 @@
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 .hidden { display: none; }
-
 body {
   background-color: rgb(255, 255, 255);
+  
 }
 .hero {
   background: linear-gradient(114.95deg, #f77199 30.38%, #f5b3e4 120.55%);

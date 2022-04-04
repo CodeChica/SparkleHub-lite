@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       errorMessage: "",
       sparkle: "",
       sparkles: [],
+      username: ""
     },
     created: function() {
       this.reload();
@@ -27,6 +28,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
       isDisabled: function() {
         return this.isSending || !this.isValid();
       },
+      filteredSparkles: function() {
+        if(this.username === ""){
+          return this.sparkles.reverse();
+        }
+        return this.recentSparkles.filter( s => s.sparklee === this.username)
+      }
+  
+     
     },
     watch: {
       sparkle: function() {
@@ -57,6 +66,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 
         setTimeout(() => this.removeConfetti(), 12000);
+      },
+      searchSparkle: function(name){
+console.log(name)
       },
       removeConfetti: function() {
         let element = document.querySelector('.confetti-container')
