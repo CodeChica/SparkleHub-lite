@@ -10,19 +10,20 @@ import (
 
 	"github.com/google/jsonapi"
 	"github.com/stretchr/testify/assert"
+	"mokhan.ca/CodeChica/sparkleapi/pkg/domain"
 )
 
 func TestServer(t *testing.T) {
 	t.Run("GET /sparkles.json", func(t *testing.T) {
 		t.Run("with valid data", func(t *testing.T) {
-			sparkles := []Sparkle{{Sparklee: "@monalisa", Reason: "for helping me with my homework."}}
+			sparkles := []domain.Sparkle{{Sparklee: "@monalisa", Reason: "for helping me with my homework."}}
 
 			response := httptest.NewRecorder()
 			request, _ := http.NewRequest("GET", "/sparkles.json", nil)
 			NewServer(&sparkles).ServeHTTP(response, request)
 
 			assert.Equal(t, http.StatusOK, response.Code)
-			var got []Sparkle
+			var got []domain.Sparkle
 			assert.Nil(t, json.NewDecoder(response.Body).Decode(&got))
 			assert.Equal(t, 1, len(got))
 			assert.Equal(t, "@monalisa", got[0].Sparklee)
@@ -32,8 +33,8 @@ func TestServer(t *testing.T) {
 
 	t.Run("GET /api/sparkles", func(t *testing.T) {
 		t.Run("returns the list of sparkles", func(t *testing.T) {
-			sparkle, _ := NewSparkle("@mona for helping me")
-			sparkles := []Sparkle{*sparkle}
+			sparkle, _ := domain.NewSparkle("@mona for helping me")
+			sparkles := []domain.Sparkle{*sparkle}
 
 			response := httptest.NewRecorder()
 			request, _ := http.NewRequest("GET", "/api/sparkles", nil)
@@ -41,19 +42,19 @@ func TestServer(t *testing.T) {
 
 			assert.Equal(t, http.StatusOK, response.Code)
 
-			got, err := jsonapi.UnmarshalManyPayload(response.Body, reflect.TypeOf(new(Sparkle)))
+			got, err := jsonapi.UnmarshalManyPayload(response.Body, reflect.TypeOf(new(domain.Sparkle)))
 			if err != nil {
 				t.Error(err)
 			}
 			assert.Equal(t, 1, len(got))
-			assert.Equal(t, "@mona", got[0].(*Sparkle).Sparklee)
-			assert.Equal(t, "for helping me", got[0].(*Sparkle).Reason)
+			assert.Equal(t, "@mona", got[0].(*domain.Sparkle).Sparklee)
+			assert.Equal(t, "for helping me", got[0].(*domain.Sparkle).Reason)
 		})
 	})
 
 	t.Run("POST /sparkles.json", func(t *testing.T) {
 		t.Run("with valid data", func(t *testing.T) {
-			sparkles := []Sparkle{}
+			sparkles := []domain.Sparkle{}
 			server := NewServer(&sparkles)
 
 			response := httptest.NewRecorder()
@@ -68,7 +69,7 @@ func TestServer(t *testing.T) {
 			assert.Equal(t, 201, response.Code)
 			assert.Equal(t, 1, len(sparkles))
 
-			var data Sparkle
+			var data domain.Sparkle
 			err := json.NewDecoder(response.Body).Decode(&data)
 			t.Logf("Response: %v", data)
 
@@ -82,7 +83,7 @@ func TestServer(t *testing.T) {
 		})
 
 		t.Run("with invalid data", func(t *testing.T) {
-			sparkles := []Sparkle{}
+			sparkles := []domain.Sparkle{}
 			server := NewServer(&sparkles)
 
 			response := httptest.NewRecorder()

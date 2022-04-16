@@ -9,14 +9,15 @@ import (
 	"os"
 
 	"github.com/google/jsonapi"
+	"mokhan.ca/CodeChica/sparkleapi/pkg/domain"
 )
 
 type Server struct {
-	sparkles *[]Sparkle
+	sparkles *[]domain.Sparkle
 	address  string
 }
 
-func NewServer(sparkles *[]Sparkle) Server {
+func NewServer(sparkles *[]domain.Sparkle) Server {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
@@ -49,7 +50,7 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			var params map[string]string
 			err := json.NewDecoder(r.Body).Decode(&params)
 			if err == nil {
-				sparkle, err := NewSparkle(params["body"])
+				sparkle, err := domain.NewSparkle(params["body"])
 				if err == nil {
 					*s.sparkles = append(*s.sparkles, *sparkle)
 					w.WriteHeader(http.StatusCreated)
@@ -65,7 +66,7 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		break
 	default:
-		x := []*Sparkle{}
+		x := []*domain.Sparkle{}
 		for _, item := range *s.sparkles {
 			x = append(x, &item)
 		}

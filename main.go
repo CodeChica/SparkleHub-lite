@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"mokhan.ca/CodeChica/sparkleapi/pkg/domain"
 )
 
 func main() {
-	sparkles := []Sparkle{}
+	sparkles := []domain.Sparkle{}
 	server := NewServer(&sparkles)
 	http.Handle("/", http.FileServer(http.Dir("public")))
 	http.HandleFunc("/sparkles.json", server.ServeHTTP)
