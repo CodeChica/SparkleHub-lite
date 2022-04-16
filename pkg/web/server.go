@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/codechica/SparkleHub-lite/pkg/db"
 )
@@ -12,7 +11,6 @@ import (
 type Server struct {
 	db         *db.Storage
 	fileserver http.Handler
-	logger     *log.Logger
 }
 
 func NewServer(storage *db.Storage) Server {
@@ -23,12 +21,11 @@ func NewServer(storage *db.Storage) Server {
 	return Server{
 		db:         storage,
 		fileserver: http.FileServer(http.Dir("public")),
-		logger:     log.New(os.Stderr, "", log.LstdFlags|log.LUTC|log.Lshortfile),
 	}
 }
 
 func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	s.logger.Println(r.Method, r.URL)
+	log.Println(r.Method, r.URL)
 	switch r.URL.String() {
 	case "/sparkles.json":
 		s.LegacyHTTPHandler(w, r)
