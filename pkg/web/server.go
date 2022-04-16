@@ -67,7 +67,7 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			renderError(w, http.StatusBadRequest, errors.New("Bad Request"))
 		}
 		break
-	case "/api/sparkles":
+	case "/v2/sparkles":
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
 		x := []*domain.Sparkle{}

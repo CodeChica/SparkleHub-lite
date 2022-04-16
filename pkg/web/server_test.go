@@ -31,13 +31,13 @@ func TestServer(t *testing.T) {
 		})
 	})
 
-	t.Run("GET /api/sparkles", func(t *testing.T) {
+	t.Run("GET /v2/sparkles", func(t *testing.T) {
 		t.Run("returns the list of sparkles", func(t *testing.T) {
 			sparkle, _ := domain.NewSparkle("@mona for helping me")
 			sparkles := []domain.Sparkle{*sparkle}
 
 			response := httptest.NewRecorder()
-			request, _ := http.NewRequest("GET", "/api/sparkles", nil)
+			request, _ := http.NewRequest("GET", "/v2/sparkles", nil)
 			NewServer(&sparkles).ServeHTTP(response, request)
 
 			assert.Equal(t, http.StatusOK, response.Code)
