@@ -1,6 +1,7 @@
 package web
 
 import (
+	"bytes"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -99,6 +100,27 @@ func TestServer(t *testing.T) {
 			var got map[string]string
 			assert.Nil(t, json.NewDecoder(response.Body).Decode(&got))
 			assert.NotEmpty(t, got["error"])
+		})
+	})
+
+	t.Run("POST /v2/sparkles", func(t *testing.T) {
+		t.Run("with valid data", func(t *testing.T) {
+			out := bytes.NewBuffer(nil)
+			sparkle, _ := domain.NewSparkle("@mona for the things")
+			jsonapi.MarshalOnePayloadEmbedded(out, sparkle)
+
+			response := httptest.NewRecorder()
+			request, _ := http.NewRequest(http.MethodPost, "/v2/sparkles", out)
+			request.Header.Set("Content-Type", "application/json")
+
+			NewServer(nil).ServeHTTP(response, request)
+
+			assert.Equal(t, http.StatusCreated, response.Code)
+
+			data := new(domain.Sparkle)
+			assert.Nil(t, jsonapi.UnmarshalPayload(response.Body, data))
+			assert.Equal(t, "@mona", data.Sparklee)
+			assert.Equal(t, "for the things", data.Reason)
 		})
 	})
 }

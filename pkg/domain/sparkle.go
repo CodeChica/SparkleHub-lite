@@ -11,7 +11,7 @@ import (
 
 type Sparkle struct {
 	ID       string `json:"id" jsonapi:"primary,sparkles"`
-	Sparklee string `json:"sparklee" jsonapi:"attr,sparkle"`
+	Sparklee string `json:"sparklee" jsonapi:"attr,sparklee"`
 	Reason   string `json:"reason" jsonapi:"attr,reason"`
 }
 

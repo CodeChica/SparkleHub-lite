@@ -19,6 +19,9 @@ type Server struct {
 }
 
 func NewServer(sparkles *[]domain.Sparkle) Server {
+	if sparkles == nil {
+		sparkles = &[]domain.Sparkle{}
+	}
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
@@ -64,23 +67,51 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				renderError(w, http.StatusBadRequest, errors.New("Bad Request"))
 			}
 		default:
-			renderError(w, http.StatusBadRequest, errors.New("Bad Request"))
+			// renderError(w, http.StatusBadRequest, errors.New("Bad Request"))
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 		break
 	case "/v2/sparkles":
 		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Content-Type", "application/json")
-		x := []*domain.Sparkle{}
-		for _, item := range *s.Sparkles {
-			x = append(x, &item)
-		}
-		if err := jsonapi.MarshalPayload(w, x); err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			jsonapi.MarshalErrors(w, []*jsonapi.ErrorObject{{
-				Title:  "Oops",
-				Detail: err.Error(),
-				Status: http.StatusText(http.StatusInternalServerError),
-			}})
+		w.Header().Set("Content-Type", jsonapi.MediaType)
+
+		switch r.Method {
+		case "GET":
+			x := []*domain.Sparkle{}
+			for _, item := range *s.Sparkles {
+				x = append(x, &item)
+			}
+			if err := jsonapi.MarshalPayload(w, x); err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				jsonapi.MarshalErrors(w, []*jsonapi.ErrorObject{{
+					Title:  "Oops",
+					Detail: err.Error(),
+					Status: http.StatusText(http.StatusInternalServerError),
+				}})
+			}
+		case "POST":
+			w.WriteHeader(http.StatusCreated)
+			sparkle := new(domain.Sparkle)
+			if err := jsonapi.UnmarshalPayload(r.Body, sparkle); err != nil {
+				w.WriteHeader(http.StatusBadRequest)
+				jsonapi.MarshalErrors(w, []*jsonapi.ErrorObject{{
+					Title:  "Invalid",
+					Detail: err.Error(),
+					Status: http.StatusText(http.StatusInternalServerError),
+				}})
+			} else {
+				w.WriteHeader(http.StatusCreated)
+				if err := jsonapi.MarshalPayload(w, sparkle); err != nil {
+					w.WriteHeader(http.StatusInternalServerError)
+					jsonapi.MarshalErrors(w, []*jsonapi.ErrorObject{{
+						Title:  "Oops",
+						Detail: err.Error(),
+						Status: http.StatusText(http.StatusInternalServerError),
+					}})
+				}
+			}
+		default:
+			w.WriteHeader(http.StatusMethodNotAllowed)
 		}
 	default:
 		s.fileserver.ServeHTTP(w, r)
