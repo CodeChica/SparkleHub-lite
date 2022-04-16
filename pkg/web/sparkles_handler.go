@@ -13,11 +13,7 @@ func (s Server) SparklesHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
-		x := []*domain.Sparkle{}
-		for _, item := range *s.Sparkles {
-			x = append(x, &item)
-		}
-		if err := jsonapi.MarshalPayload(w, x); err != nil {
+		if err := jsonapi.MarshalPayload(w, s.db.Sparkles); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			jsonapi.MarshalErrors(w, []*jsonapi.ErrorObject{{
 				Title:  "Oops",
@@ -26,7 +22,6 @@ func (s Server) SparklesHTTPHandler(w http.ResponseWriter, r *http.Request) {
 			}})
 		}
 	case "POST":
-		w.WriteHeader(http.StatusCreated)
 		sparkle := new(domain.Sparkle)
 		if err := jsonapi.UnmarshalPayload(r.Body, sparkle); err != nil {
 			w.WriteHeader(http.StatusBadRequest)

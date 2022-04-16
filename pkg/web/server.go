@@ -6,22 +6,22 @@ import (
 	"net/http"
 	"os"
 
-	"mokhan.ca/CodeChica/sparkleapi/pkg/domain"
+	"mokhan.ca/CodeChica/sparkleapi/pkg/db"
 )
 
 type Server struct {
-	Sparkles   *[]domain.Sparkle
+	db         *db.Storage
 	fileserver http.Handler
 	logger     *log.Logger
 }
 
-func NewServer(sparkles *[]domain.Sparkle) Server {
-	if sparkles == nil {
-		sparkles = &[]domain.Sparkle{}
+func NewServer(storage *db.Storage) Server {
+	if storage == nil {
+		storage = db.NewStorage()
 	}
 
 	return Server{
-		Sparkles:   sparkles,
+		db:         storage,
 		fileserver: http.FileServer(http.Dir("public")),
 		logger:     log.New(os.Stderr, "", log.LstdFlags|log.LUTC|log.Lshortfile),
 	}

@@ -15,7 +15,7 @@ func (s Server) LegacyHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
-		data, err := json.Marshal(s.Sparkles)
+		data, err := json.Marshal(s.db.Sparkles)
 		if err == nil {
 			w.WriteHeader(http.StatusOK)
 			w.Write(data)
@@ -29,7 +29,7 @@ func (s Server) LegacyHTTPHandler(w http.ResponseWriter, r *http.Request) {
 		if err == nil {
 			sparkle, err := domain.NewSparkle(params["body"])
 			if err == nil {
-				*s.Sparkles = append(*s.Sparkles, *sparkle)
+				s.db.Save(sparkle)
 				w.WriteHeader(http.StatusCreated)
 				json.NewEncoder(w).Encode(sparkle)
 			} else {
