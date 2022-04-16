@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"strings"
 	"testing"
 
+	"github.com/google/jsonapi"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -25,6 +27,27 @@ func TestServer(t *testing.T) {
 			assert.Equal(t, 1, len(got))
 			assert.Equal(t, "@monalisa", got[0].Sparklee)
 			assert.Equal(t, "for helping me with my homework.", got[0].Reason)
+		})
+	})
+
+	t.Run("GET /api/sparkles", func(t *testing.T) {
+		t.Run("returns the list of sparkles", func(t *testing.T) {
+			sparkle, _ := NewSparkle("@mona for helping me")
+			sparkles := []Sparkle{*sparkle}
+
+			response := httptest.NewRecorder()
+			request, _ := http.NewRequest("GET", "/api/sparkles", nil)
+			NewServer(&sparkles).ServeHTTP(response, request)
+
+			assert.Equal(t, http.StatusOK, response.Code)
+
+			got, err := jsonapi.UnmarshalManyPayload(response.Body, reflect.TypeOf(new(Sparkle)))
+			if err != nil {
+				t.Error(err)
+			}
+			assert.Equal(t, 1, len(got))
+			assert.Equal(t, "@mona", got[0].(*Sparkle).Sparklee)
+			assert.Equal(t, "for helping me", got[0].(*Sparkle).Reason)
 		})
 	})
 

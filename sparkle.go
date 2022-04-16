@@ -2,12 +2,17 @@ package main
 
 import (
 	"errors"
+	"math/rand"
 	"regexp"
+	"time"
+
+	"github.com/oklog/ulid/v2"
 )
 
 type Sparkle struct {
-	Sparklee string `json:"sparklee"`
-	Reason   string `json:"reason"`
+	ID       string `jsonapi:"primary,sparkles"`
+	Sparklee string `json:"sparklee" jsonapi:"attr,sparkle"`
+	Reason   string `json:"reason" jsonapi:"attr,reason"`
 }
 
 var SparkleRegex = regexp.MustCompile(`\A\s*(?P<sparklee>@\w+)\s+(?P<reason>.+)\z`)
@@ -28,7 +33,16 @@ func NewSparkle(text string) (*Sparkle, error) {
 	}
 
 	return &Sparkle{
+		ID:       generateULID(),
 		Sparklee: matches[SparkleeIndex],
 		Reason:   matches[ReasonIndex],
 	}, nil
+}
+
+func generateULID() string {
+	seed := time.Now().UnixNano()
+	source := rand.NewSource(seed)
+	entropy := rand.New(source)
+	id, _ := ulid.New(ulid.Timestamp(time.Now()), entropy)
+	return id.String()
 }

@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/google/jsonapi"
 )
 
 type Server struct {
@@ -31,33 +33,50 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
-	switch r.Method {
-	case "GET":
-		data, err := json.Marshal(s.sparkles)
-		if err == nil {
-			w.WriteHeader(http.StatusOK)
-			w.Write(data)
-		} else {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(fmt.Sprintf(`{"error":"%s"}`, err)))
-		}
-	case "POST":
-		var params map[string]string
-		err := json.NewDecoder(r.Body).Decode(&params)
-		if err == nil {
-			sparkle, err := NewSparkle(params["body"])
+	switch r.URL.String() {
+	case "/sparkles.json":
+		switch r.Method {
+		case "GET":
+			data, err := json.Marshal(s.sparkles)
 			if err == nil {
-				*s.sparkles = append(*s.sparkles, *sparkle)
-				w.WriteHeader(http.StatusCreated)
-				json.NewEncoder(w).Encode(sparkle)
+				w.WriteHeader(http.StatusOK)
+				w.Write(data)
 			} else {
-				renderError(w, http.StatusUnprocessableEntity, err)
+				w.WriteHeader(http.StatusInternalServerError)
+				w.Write([]byte(fmt.Sprintf(`{"error":"%s"}`, err)))
 			}
-		} else {
+		case "POST":
+			var params map[string]string
+			err := json.NewDecoder(r.Body).Decode(&params)
+			if err == nil {
+				sparkle, err := NewSparkle(params["body"])
+				if err == nil {
+					*s.sparkles = append(*s.sparkles, *sparkle)
+					w.WriteHeader(http.StatusCreated)
+					json.NewEncoder(w).Encode(sparkle)
+				} else {
+					renderError(w, http.StatusUnprocessableEntity, err)
+				}
+			} else {
+				renderError(w, http.StatusBadRequest, errors.New("Bad Request"))
+			}
+		default:
 			renderError(w, http.StatusBadRequest, errors.New("Bad Request"))
 		}
+		break
 	default:
-		renderError(w, http.StatusBadRequest, errors.New("Bad Request"))
+		x := []*Sparkle{}
+		for _, item := range *s.sparkles {
+			x = append(x, &item)
+		}
+		if err := jsonapi.MarshalPayload(w, x); err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			jsonapi.MarshalErrors(w, []*jsonapi.ErrorObject{{
+				Title:  "Oops",
+				Detail: err.Error(),
+				Status: http.StatusText(http.StatusInternalServerError),
+			}})
+		}
 	}
 }
 
