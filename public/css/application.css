@@ -8,7 +8,6 @@
 .hidden { display: none; }
 body {
   background-color: rgb(255, 255, 255);
-  
 }
 .hero {
   background: linear-gradient(114.95deg, #f77199 30.38%, #f5b3e4 120.55%);
@@ -41,6 +40,10 @@ body {
   margin-bottom: 10px;
   padding-left: 78px;
   width: 72%;
+}
+.hero input[type=search] {
+  border-radius: 6px;
+  margin-left: 65%;
 }
 .hero button {
   background-color: rgb(233, 87, 160);

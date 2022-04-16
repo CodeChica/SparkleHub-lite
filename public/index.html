@@ -7,17 +7,16 @@
     <link href="/css/reset.css" rel="stylesheet" />
     <link href="/css/grid.css" rel="stylesheet" />
     <link href="/css/application.css" rel="stylesheet" />
+    <link href="/css/sparkles.css" rel="stylesheet" />
     <script src="/vendor/vue.js"></script>
     <script src="/application.js"></script>
-    <link href="/css/sparkles.css" rel="stylesheet" />
   </head>
   <body style="height: 550px; overflow: auto; ">
     <main id="app">
-      <div class="hero"> 
-        <div class="container">   
-            <form style="width: 55%; margin-left: 200px;" v-on:submit.prevent="searchSparkle">
-              <label for="body">/search</label>
-              <input type="text" placeholder="insert username e.g @spongebob" v-model="username" />
+      <div class="hero">
+        <div class="container">
+            <form v-on:submit.prevent>
+              <input type="search" placeholder="Search" v-model="searchTerm" />
             </form>
           <p class="hero__primary">Show your gratitude</p>
           <p class="hero__secondary">Sparkle someone with joy</p>
