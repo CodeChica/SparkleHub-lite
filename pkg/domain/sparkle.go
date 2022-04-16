@@ -10,7 +10,7 @@ import (
 )
 
 type Sparkle struct {
-	ID       string `jsonapi:"primary,sparkles"`
+	ID       string `json:"id" jsonapi:"primary,sparkles"`
 	Sparklee string `json:"sparklee" jsonapi:"attr,sparkle"`
 	Reason   string `json:"reason" jsonapi:"attr,reason"`
 }

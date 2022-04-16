@@ -1,4 +1,4 @@
-package main
+package web
 
 import (
 	"encoding/json"
@@ -13,8 +13,8 @@ import (
 )
 
 type Server struct {
-	sparkles *[]domain.Sparkle
-	address  string
+	Sparkles *[]domain.Sparkle
+	Address  string
 }
 
 func NewServer(sparkles *[]domain.Sparkle) Server {
@@ -24,8 +24,8 @@ func NewServer(sparkles *[]domain.Sparkle) Server {
 	}
 
 	return Server{
-		sparkles: sparkles,
-		address:  ":" + port,
+		Sparkles: sparkles,
+		Address:  ":" + port,
 	}
 }
 
@@ -38,7 +38,7 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "/sparkles.json":
 		switch r.Method {
 		case "GET":
-			data, err := json.Marshal(s.sparkles)
+			data, err := json.Marshal(s.Sparkles)
 			if err == nil {
 				w.WriteHeader(http.StatusOK)
 				w.Write(data)
@@ -52,7 +52,7 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			if err == nil {
 				sparkle, err := domain.NewSparkle(params["body"])
 				if err == nil {
-					*s.sparkles = append(*s.sparkles, *sparkle)
+					*s.Sparkles = append(*s.Sparkles, *sparkle)
 					w.WriteHeader(http.StatusCreated)
 					json.NewEncoder(w).Encode(sparkle)
 				} else {
@@ -67,7 +67,7 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		break
 	default:
 		x := []*domain.Sparkle{}
-		for _, item := range *s.sparkles {
+		for _, item := range *s.Sparkles {
 			x = append(x, &item)
 		}
 		if err := jsonapi.MarshalPayload(w, x); err != nil {
