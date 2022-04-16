@@ -13,8 +13,9 @@ import (
 )
 
 type Server struct {
-	Sparkles *[]domain.Sparkle
-	Address  string
+	Sparkles   *[]domain.Sparkle
+	Address    string
+	fileserver http.Handler
 }
 
 func NewServer(sparkles *[]domain.Sparkle) Server {
@@ -24,18 +25,19 @@ func NewServer(sparkles *[]domain.Sparkle) Server {
 	}
 
 	return Server{
-		Sparkles: sparkles,
-		Address:  ":" + port,
+		Sparkles:   sparkles,
+		Address:    ":" + port,
+		fileserver: http.FileServer(http.Dir("public")),
 	}
 }
 
 func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	log.Printf("%s %s\n", r.Method, r.URL)
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Type", "application/json")
-
 	switch r.URL.String() {
 	case "/sparkles.json":
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Content-Type", "application/json")
+
 		switch r.Method {
 		case "GET":
 			data, err := json.Marshal(s.Sparkles)
@@ -65,7 +67,9 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			renderError(w, http.StatusBadRequest, errors.New("Bad Request"))
 		}
 		break
-	default:
+	case "/api/sparkles":
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Content-Type", "application/json")
 		x := []*domain.Sparkle{}
 		for _, item := range *s.Sparkles {
 			x = append(x, &item)
@@ -78,6 +82,8 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				Status: http.StatusText(http.StatusInternalServerError),
 			}})
 		}
+	default:
+		s.fileserver.ServeHTTP(w, r)
 	}
 }
 

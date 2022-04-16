@@ -12,8 +12,7 @@ import (
 func main() {
 	sparkles := []domain.Sparkle{}
 	server := web.NewServer(&sparkles)
-	http.Handle("/", http.FileServer(http.Dir("public")))
-	http.HandleFunc("/sparkles.json", server.ServeHTTP)
+	http.Handle("/", server)
 
 	fmt.Printf("Listening and serving HTTP on `%s`\n", server.Address)
 	log.Fatal(http.ListenAndServe(server.Address, nil))
