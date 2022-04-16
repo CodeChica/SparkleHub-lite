@@ -1,4 +1,4 @@
-module mokhan.ca/CodeChica/sparkleapi
+module github.com/codechica/SparkleHub-lite
 
 go 1.18
 

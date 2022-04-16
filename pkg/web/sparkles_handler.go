@@ -3,8 +3,8 @@ package web
 import (
 	"net/http"
 
+	"github.com/codechica/SparkleHub-lite/pkg/domain"
 	"github.com/google/jsonapi"
-	"mokhan.ca/CodeChica/sparkleapi/pkg/domain"
 )
 
 func (s Server) SparklesHTTPHandler(w http.ResponseWriter, r *http.Request) {

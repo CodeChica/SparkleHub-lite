@@ -9,10 +9,10 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/codechica/SparkleHub-lite/pkg/db"
+	"github.com/codechica/SparkleHub-lite/pkg/domain"
 	"github.com/google/jsonapi"
 	"github.com/stretchr/testify/assert"
-	"mokhan.ca/CodeChica/sparkleapi/pkg/db"
-	"mokhan.ca/CodeChica/sparkleapi/pkg/domain"
 )
 
 func TestServer(t *testing.T) {

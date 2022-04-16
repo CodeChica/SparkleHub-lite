@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"mokhan.ca/CodeChica/sparkleapi/pkg/web"
+	"github.com/codechica/SparkleHub-lite/pkg/web"
 )
 
 var (

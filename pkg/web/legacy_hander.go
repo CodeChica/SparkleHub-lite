@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"mokhan.ca/CodeChica/sparkleapi/pkg/domain"
+	"github.com/codechica/SparkleHub-lite/pkg/domain"
 )
 
 func (s Server) LegacyHTTPHandler(w http.ResponseWriter, r *http.Request) {

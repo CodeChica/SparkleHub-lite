@@ -1,6 +1,6 @@
 package db
 
-import "mokhan.ca/CodeChica/sparkleapi/pkg/domain"
+import "github.com/codechica/SparkleHub-lite/pkg/domain"
 
 type Storage struct {
 	Sparkles []*domain.Sparkle

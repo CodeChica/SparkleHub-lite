@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"mokhan.ca/CodeChica/sparkleapi/pkg/db"
+	"github.com/codechica/SparkleHub-lite/pkg/db"
 )
 
 type Server struct {
