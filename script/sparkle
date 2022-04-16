@@ -10,4 +10,4 @@ if [ "$#" -lt 2 ]; then
 fi
 
 HOST=${HOST:-http://localhost:8080}
-curl -s "$HOST/sparkles.json" -d "{\"body\":\"$*\"}" | jq '.'
+curl -s "$HOST/sparkles.json" -d "{\"body\":\"$*\"}"

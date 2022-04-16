@@ -4,4 +4,4 @@ set -e
 cd "$(dirname "$0")/.."
 
 HOST=${HOST:-http://localhost:8080}
-curl -s "$HOST/sparkles.json"
+curl -s "$HOST/v2/sparkles"
