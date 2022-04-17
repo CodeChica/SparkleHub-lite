@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     },
     methods: {
       reload: function() {
-        fetch("/sparkles.json")
+        fetch("/v2/sparkles")
           .then((response) => response.json())
-          .then((data) => this.sparkles = data)
-          .catch((error) => console.error(error));
+          .then((json) => this.sparkles = json.data.map(x => x.attributes))
+          .catch((json) => console.error(json.errors));
       },
       isValid: function() {
         return this.sparkle.length > 0;
