@@ -41,7 +41,7 @@ func NewSparkle(text string) (*Sparkle, error) {
 	}, nil
 }
 
-func (s *Sparkle) IsValid() error {
+func (s *Sparkle) Validate() error {
 	if s.Sparklee == "" {
 		return SparkleeIsRequired
 	}

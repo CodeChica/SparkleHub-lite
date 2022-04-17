@@ -13,7 +13,7 @@ func NewRepository() *Repository {
 }
 
 func (s *Repository) Save(item *domain.Sparkle) error {
-	if err := item.IsValid(); err != nil {
+	if err := item.Validate(); err != nil {
 		return err
 	}
 
