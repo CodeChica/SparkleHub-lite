@@ -17,7 +17,11 @@ var (
 
 func init() {
 	flag.BoolVar(&help, "help", false, "")
-	flag.StringVar(&address, "address", ":8080", "the address to bind to")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	flag.StringVar(&address, "address", ":"+port, "the address to bind to")
 	flag.Parse()
 }
 
