@@ -72,7 +72,7 @@ func TestServer(t *testing.T) {
 			server.ServeHTTP(response, request)
 
 			assert.Equal(t, 201, response.Code)
-			assert.Equal(t, 1, len(store.Sparkles))
+			assert.Equal(t, 1, len(store.All()))
 
 			var data domain.Sparkle
 			err := json.NewDecoder(response.Body).Decode(&data)
@@ -82,7 +82,7 @@ func TestServer(t *testing.T) {
 			assert.Equal(t, "@monalisa", data.Sparklee)
 			assert.Equal(t, "for being kind", data.Reason)
 
-			sparkle := *store.Sparkles[0]
+			sparkle := *store.All()[0]
 			assert.Equal(t, "@monalisa", sparkle.Sparklee)
 			assert.Equal(t, "for being kind", sparkle.Reason)
 		})

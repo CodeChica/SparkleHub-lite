@@ -15,7 +15,7 @@ func (s Server) LegacyHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
-		data, err := json.Marshal(s.db.Sparkles)
+		data, err := json.Marshal(s.db.All())
 		if err == nil {
 			w.WriteHeader(http.StatusOK)
 			w.Write(data)

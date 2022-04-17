@@ -6,13 +6,19 @@ import (
 )
 
 type Repository struct {
-	Sparkles []*domain.Sparkle
+	sparkles []*domain.Sparkle
 }
 
 func NewRepository() *Repository {
 	return &Repository{
-		Sparkles: []*domain.Sparkle{},
+		sparkles: []*domain.Sparkle{},
 	}
+}
+
+func (s *Repository) All() []*domain.Sparkle {
+	readonly := make([]*domain.Sparkle, len(s.sparkles))
+	copy(readonly, s.sparkles)
+	return readonly
 }
 
 func (s *Repository) Save(item *domain.Sparkle) error {
@@ -23,6 +29,6 @@ func (s *Repository) Save(item *domain.Sparkle) error {
 	if item.ID == "" {
 		item.ID = pls.GenerateULID()
 	}
-	s.Sparkles = append(s.Sparkles, item)
+	s.sparkles = append(s.sparkles, item)
 	return nil
 }

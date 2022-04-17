@@ -13,7 +13,7 @@ func (s Server) SparklesHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
-		if err := jsonapi.MarshalPayload(w, s.db.Sparkles); err != nil {
+		if err := jsonapi.MarshalPayload(w, s.db.All()); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			jsonapi.MarshalErrors(w, []*jsonapi.ErrorObject{{
 				Title:  "Oops",
