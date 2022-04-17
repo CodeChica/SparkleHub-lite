@@ -23,6 +23,7 @@ func TestRepository(t *testing.T) {
 
 			assert.Nil(t, err)
 			assert.Equal(t, 1, len(storage.Sparkles))
+			assert.NotEqual(t, "", storage.Sparkles[0].ID)
 			assert.Equal(t, "@monalisa", storage.Sparkles[0].Sparklee)
 			assert.Equal(t, "because", storage.Sparkles[0].Reason)
 		})

@@ -1,6 +1,9 @@
 package db
 
-import "github.com/codechica/SparkleHub-lite/pkg/domain"
+import (
+	"github.com/codechica/SparkleHub-lite/pkg/domain"
+	"github.com/codechica/SparkleHub-lite/pkg/pls"
+)
 
 type Repository struct {
 	Sparkles []*domain.Sparkle
@@ -17,6 +20,9 @@ func (s *Repository) Save(item *domain.Sparkle) error {
 		return err
 	}
 
+	if item.ID == "" {
+		item.ID = pls.GenerateULID()
+	}
 	s.Sparkles = append(s.Sparkles, item)
 	return nil
 }

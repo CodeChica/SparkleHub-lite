@@ -2,11 +2,9 @@ package domain
 
 import (
 	"errors"
-	"math/rand"
 	"regexp"
-	"time"
 
-	"github.com/oklog/ulid/v2"
+	"github.com/codechica/SparkleHub-lite/pkg/pls"
 )
 
 type Sparkle struct {
@@ -35,7 +33,7 @@ func NewSparkle(text string) (*Sparkle, error) {
 	}
 
 	return &Sparkle{
-		ID:       generateULID(),
+		ID:       pls.GenerateULID(),
 		Sparklee: matches[SparkleeIndex],
 		Reason:   matches[ReasonIndex],
 	}, nil
@@ -49,12 +47,4 @@ func (s *Sparkle) Validate() error {
 		return ReasonIsRequired
 	}
 	return nil
-}
-
-func generateULID() string {
-	seed := time.Now().UnixNano()
-	source := rand.NewSource(seed)
-	entropy := rand.New(source)
-	id, _ := ulid.New(ulid.Timestamp(time.Now()), entropy)
-	return id.String()
 }
