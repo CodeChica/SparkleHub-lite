@@ -12,6 +12,11 @@ func NewStorage() *Storage {
 	}
 }
 
-func (s *Storage) Save(item *domain.Sparkle) {
+func (s *Storage) Save(item *domain.Sparkle) error {
+	if err := item.IsValid(); err != nil {
+		return err
+	}
+
 	s.Sparkles = append(s.Sparkles, item)
+	return nil
 }

@@ -123,5 +123,31 @@ func TestServer(t *testing.T) {
 			assert.Equal(t, "@mona", data.Sparklee)
 			assert.Equal(t, "for the things", data.Reason)
 		})
+
+		t.Run("without a Sparklee", func(t *testing.T) {
+			out := bytes.NewBuffer(nil)
+			sparkle := &domain.Sparkle{Reason: "because"}
+			jsonapi.MarshalOnePayloadEmbedded(out, sparkle)
+
+			response := httptest.NewRecorder()
+			request, _ := http.NewRequest(http.MethodPost, "/v2/sparkles", out)
+
+			NewServer(nil).ServeHTTP(response, request)
+
+			assert.Equal(t, http.StatusBadRequest, response.Code)
+		})
+
+		t.Run("without a Reason", func(t *testing.T) {
+			out := bytes.NewBuffer(nil)
+			sparkle := &domain.Sparkle{Sparklee: "@monalisa", Reason: ""}
+			jsonapi.MarshalOnePayloadEmbedded(out, sparkle)
+
+			response := httptest.NewRecorder()
+			request, _ := http.NewRequest(http.MethodPost, "/v2/sparkles", out)
+
+			NewServer(nil).ServeHTTP(response, request)
+
+			assert.Equal(t, http.StatusBadRequest, response.Code)
+		})
 	})
 }
