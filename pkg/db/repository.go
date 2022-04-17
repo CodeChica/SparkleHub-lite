@@ -2,17 +2,17 @@ package db
 
 import "github.com/codechica/SparkleHub-lite/pkg/domain"
 
-type Storage struct {
+type Repository struct {
 	Sparkles []*domain.Sparkle
 }
 
-func NewStorage() *Storage {
-	return &Storage{
+func NewRepository() *Repository {
+	return &Repository{
 		Sparkles: []*domain.Sparkle{},
 	}
 }
 
-func (s *Storage) Save(item *domain.Sparkle) error {
+func (s *Repository) Save(item *domain.Sparkle) error {
 	if err := item.IsValid(); err != nil {
 		return err
 	}

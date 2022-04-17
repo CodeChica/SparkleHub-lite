@@ -9,13 +9,13 @@ import (
 )
 
 type Server struct {
-	db         *db.Storage
+	db         *db.Repository
 	fileserver http.Handler
 }
 
-func NewServer(storage *db.Storage) Server {
+func NewServer(storage *db.Repository) Server {
 	if storage == nil {
-		storage = db.NewStorage()
+		storage = db.NewRepository()
 	}
 
 	return Server{

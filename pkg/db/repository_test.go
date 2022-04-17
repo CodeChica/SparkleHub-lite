@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestStorage(t *testing.T) {
-	storage := NewStorage()
+func TestRepository(t *testing.T) {
+	storage := NewRepository()
 
 	t.Run("Save", func(t *testing.T) {
 		t.Run("an invalid Sparkle", func(t *testing.T) {

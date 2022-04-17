@@ -19,7 +19,7 @@ func TestServer(t *testing.T) {
 	t.Run("GET /sparkles.json", func(t *testing.T) {
 		t.Run("with valid data", func(t *testing.T) {
 			sparkle, _ := domain.NewSparkle("@monalisa for helping me with my homework.")
-			store := db.NewStorage()
+			store := db.NewRepository()
 			store.Save(sparkle)
 
 			response := httptest.NewRecorder()
@@ -38,7 +38,7 @@ func TestServer(t *testing.T) {
 	t.Run("GET /v2/sparkles", func(t *testing.T) {
 		t.Run("returns the list of sparkles", func(t *testing.T) {
 			sparkle, _ := domain.NewSparkle("@mona for helping me")
-			store := db.NewStorage()
+			store := db.NewRepository()
 			store.Save(sparkle)
 
 			response := httptest.NewRecorder()
@@ -59,7 +59,7 @@ func TestServer(t *testing.T) {
 
 	t.Run("POST /sparkles.json", func(t *testing.T) {
 		t.Run("with valid data", func(t *testing.T) {
-			store := db.NewStorage()
+			store := db.NewRepository()
 			server := NewServer(store)
 
 			response := httptest.NewRecorder()
