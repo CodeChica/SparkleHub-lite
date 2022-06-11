@@ -10,7 +10,7 @@ for the web application. A live version of this application can be found
 ## Getting Started
 
 1. Install [Golang][golang].
-2. Run `./script/server` from a terminal.
+2. Run `make server` from a terminal.
 3. Open a browser to [http://localhost:8080](http://localhost:8080).
 
 ## HTTP API

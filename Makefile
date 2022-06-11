@@ -1,26 +1,19 @@
-PACKAGES = $(shell go list ./...)
-
 default: help
 
 .PHONY: all
 all: bin
 
-bin/server:
-	CGO_ENABLED=0 go build -o "bin/server" cmd/server/main.go
-
-bin: bin/server ## Build binary
-
 .PHONY: clean
 clean:
-	rm -fr $(CURDIR)/bin $(CURDIR)/tmp/**/*.pem
+	rm -fr $(CURDIR)/bin
 
 .PHONY: server
-server: bin/server ## Start server
-	bin/server
+server: ## Start server
+	@sh ./script/server
 
 .PHONY: test
 test: ## Run tests
-	go test -v -race $(PACKAGES) $(ARGS)
+	@sh ./script/test
 
 .PHONY: help
 help:
