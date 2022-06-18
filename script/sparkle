@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 
 if [ "$#" -lt 2 ]; then
   echo "Usage: $0 @<username> <reason>"
-  echo "e.g: $0 @spongebob for helping me with my krusty burger!"
+  echo "e.g: $0 @spongebob for helping me with my krabby patty!"
   exit 1
 fi
 
