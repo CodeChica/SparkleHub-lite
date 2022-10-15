@@ -154,4 +154,4 @@ uploadButton.onchange = () => {  let reader = newFileReader();
   read.onload = () => {   
     chosenIimage.setAttribute('src", reader. result); }   
     fileName.textContent = uploadButton.files[0]. 
-    name:
+    name;
