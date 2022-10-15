@@ -12,6 +12,17 @@ input[type="file"]{
   display:none;
 }
 
+label{
+  display: block;
+  position:relative;
+  background-color:aquamarine;
+  color:aliceblue;
+  font-size: 18 px;  
+  text-align: center;  
+  width: 300px   
+  cursor: pointer;
+}
+
 .confetti-container {
   width: 100%;
   height: 100%;

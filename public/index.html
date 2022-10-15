@@ -20,11 +20,16 @@
         <div class="container">   
             <img id = "chosen=image">
             <figcaption id = "file-name">   
-              Demo File name </fig caption>   
+            </fig caption>   
             </figure>
+
             <input type = "file" id="upload button" 
             accept = "image/*">
             <label for = "upload-button>
+              <i class = "fas fa-upload"</i> &nbsp;
+                Choose A Photo
+              </label>
+            
 
             <form v-on:submit.prevent>
               <input type="search" placeholder="Search" v-model="searchTerm" />
@@ -38,6 +43,7 @@
           </form>
           <span class="error">{{ errorMessage }}</span>
         </div>
+        <script src="script.js">M/script>
       </div>
       <div class="confetti-container"></div>
       <div class="container">

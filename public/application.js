@@ -144,3 +144,14 @@ const pickr = Pickr.create({
       }
   }
 });
+
+let uploadButton = document.getElementById ("upload-button");   
+let chosenImage = document.getElementbyId   ("chosen-image");   
+let fileName = document.getElementbyId   ("file-name");   
+
+uploadButton.onchange = () => {  let reader = newFileReader();   
+  reader.ReadAsDatatURL (uploadButton.files[0]);   
+  read.onload = () => {   
+    chosenIimage.setAttribute('src", reader. result); }   
+    fileName.textContent = uploadButton.files[0]. 
+    name:
