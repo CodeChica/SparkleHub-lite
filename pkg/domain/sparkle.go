@@ -11,11 +11,13 @@ type Sparkle struct {
 	ID       string `json:"id" jsonapi:"primary,sparkles"`
 	Sparklee string `json:"sparklee" jsonapi:"attr,sparklee"`
 	Reason   string `json:"reason" jsonapi:"attr,reason"`
+	Date     string `json:"date" jsonapi:"attr,date"`
 }
 
-var SparkleRegex = regexp.MustCompile(`\A\s*(?P<sparklee>@\w+)\s+(?P<reason>.+)\z`)
+var SparkleRegex = regexp.MustCompile(`\A\s*(?P<sparklee>@\w+)\s+(?P<reason>.+)\s+(?P<date>.+)\z`)
 var SparkleeIndex = SparkleRegex.SubexpIndex("sparklee")
 var ReasonIndex = SparkleRegex.SubexpIndex("reason")
+var DateIndex = SparkleRegex.SubexpIndex("date")
 
 var ReasonIsRequired = errors.New("Reason is required")
 var SparkleIsEmpty = errors.New("Sparkle is empty")
@@ -36,6 +38,7 @@ func NewSparkle(text string) (*Sparkle, error) {
 		ID:       pls.GenerateULID(),
 		Sparklee: matches[SparkleeIndex],
 		Reason:   matches[ReasonIndex],
+		Date:     matches[DateIndex],
 	}, nil
 }
 
