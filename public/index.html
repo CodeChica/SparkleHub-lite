@@ -15,8 +15,12 @@
     <script src="/application.js"></script>
   </head>
   <body>
-    <div class = "container1">
-<figure class = "image-container1">   
+
+
+     style="height: 550px; overflow: auto; ">
+    <main id="app">
+      <div class="hero">
+        <div class="container">   
             <img id = "chosen=image">
             <figcaption id = "file-name">   
               Demo File name </fig caption>   
@@ -24,11 +28,6 @@
             <input type = "file" id="upload button" 
             accept = "image/*">
             <label for = "upload-button>
-
-     style="height: 550px; overflow: auto; ">
-    <main id="app">
-      <div class="hero">
-        <div class="container">
 
             <form v-on:submit.prevent>
               <input type="search" placeholder="Search" v-model="searchTerm" />
