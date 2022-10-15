@@ -18,11 +18,94 @@
       <div class="hero">
         <div class="container">
             <form v-on:submit.prevent>
-              <input type="search" placeholder="Search" v-model="searchTerm" />
-              <a href="#" class="notification">
-  <span>Notifications</span>
-  <span class="badge">3</span>
-</a>
+              <input type="search" placeholder="Search" v-model="searchTerm" /
+              <div class="panel panel-default">
+  <div class="panel-body">
+    <!-- Single button -->
+    <div class="btn-group pull-right top-head-dropdown">
+      <button style="background:pink url(https://user-images.githubusercontent.com/110737889/195995204-f5c74b06-130d-4c00-b3ef-f90b32880c11.png)"type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Notification <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li>
+          <a href="#" class="top-text-block">
+            <div class="top-text-heading">You recieved a sparkle from <b>Melani Rodriguez</b> it says "You are an amazing teammate!!"</div>
+            <div class="top-text-light">15 minutes ago</div>
+          </a> 
+        </li>
+        <li>
+          <a href="#" class="top-text-block">
+            <div class="top-text-heading">You recieved a sparkle from <b>Athena</b> it says "You did a great job on the website!!"</div>
+            <div class="top-text-light">2 hours ago</div>
+          </a> 
+        </li>
+        <li>
+          <a href="#" class="top-text-block">
+            <div class="top-text-heading">You recieved a sparkle from <b>Alexandria Collins</b> it says "Good job on the HTML and CSS!!"</div>
+            <div class="top-text-light">4 hours ago</div>
+          </a> 
+        </li>
+        <li>
+          <a href="#" class="top-text-block">
+            <div class="top-text-heading">You recieved a sparkle from <b>Cathy</b> it says "I love your decorations on the website, it gives a different type of pazzazz!!"</div>
+            <div class="top-text-light">4 hours ago</div>
+          </a> 
+        </li>
+        <li>
+          <a href="#" class="top-text-block">
+            <div class="top-text-heading">You successfully sparkled <b> Kellyn Dassler</b></div>
+            <div class="top-text-light">4 hours ago</div>
+          </a> 
+        </li>
+        <li>
+          <a href="#" class="top-text-block">
+            <div class="top-text-heading">You recieved a sparkle from <b>Blessing</b> it says "You are a great partner to have because of your enthusiasm and hard work."</div>
+            <div class="top-text-light">6 hours ago</div>
+          </a> 
+        </li>
+        <li>
+          <a href="#" class="top-text-block">
+            <div class="top-text-heading">You successfully sparkled <b>Spongebob</b></div>
+            <div class="top-text-light">7 hours ago</div>
+          </a> 
+        </li>
+        <li>
+          <a href="#" class="top-text-block">
+            <div class="top-text-heading">You recieves a sparkle from <b>Mike Wasowski</b>it says "Hello googly bear, I'm so proud of you for working hard at Monsters.Inc!!"</div>
+            <div class="top-text-light">7 hours ago</div>
+          </a> 
+        </li>
+        <li>
+          <a href="#" class="top-text-block">
+            <div class="top-text-heading">You successfully sent a sparkle to <b>Mike Wasowski</b></div>
+            <div class="top-text-light">1 day ago</div>
+          </a> 
+        </li>
+       <li>
+        <div class="loader-topbar"></div>
+       </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="Add someone">
+  <link rel="button" href="notification button">
+  <button onclick="myFunction()" class="dropbtn">Add Someone</button>
+  <button type="submit">Enter</button>
+  <div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+    <a href="#Alexandria Collins">Alexandria Collins</a>
+    <a href="#Melani Rodriguez">Melani Rodriguez</a>
+    <a href="#Athena Martinez">Athena Martinez</a>
+    <a href="#Bethsaida">Bethsaida</a>
+    <a href="#Kellyn Dassler">Kellyn Dassler</a>
+    <a href="#Blessing">Blessing</a>
+    <a href="#Cathy">Cathy</a>
+  </div>
+</div>         
+
+
             </form>
           <p class="hero__primary">Show your gratitude</p>
           <p class="hero__secondary">Sparkle someone with joy</p>
