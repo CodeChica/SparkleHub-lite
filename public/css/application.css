@@ -9,6 +9,9 @@
 body {
   background-color: rgb(255, 255, 255);
 }
+.notification_button {
+  background: url(notificationicon.png);
+}
 .hero {
   background: linear-gradient(114.95deg, #f77199 30.38%, #f5b3e4 120.55%);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
