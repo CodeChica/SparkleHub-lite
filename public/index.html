@@ -14,15 +14,21 @@
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <script src="/application.js"></script>
   </head>
-  <body style="height: 550px; overflow: auto; ">
-    <main id="app">
-      <div class="hero">
-        <div class="container">
-          <figure class = "image-container">   
+  <body>
+    <div class = "container1">
+<figure class = "image-container1">   
             <img id = "chosen=image">
             <figcaption id = "file-name">   
               Demo File name </fig caption>   
             </figure>
+            <input type = "file" id="upload button" 
+            accept = "image/*">
+            <label for = "upload-button>
+
+     style="height: 550px; overflow: auto; ">
+    <main id="app">
+      <div class="hero">
+        <div class="container">
 
             <form v-on:submit.prevent>
               <input type="search" placeholder="Search" v-model="searchTerm" />
