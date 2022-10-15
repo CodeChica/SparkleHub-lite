@@ -7,6 +7,7 @@
     <link href="/css/reset.css" rel="stylesheet" />
     <link href="/css/grid.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/> <!-- 'classic' theme --
+    
     <link href="/css/application.css" rel="stylesheet" />
     <link href="/css/sparkles.css" rel="stylesheet" />
     <script src="/vendor/vue.js"></script>
@@ -17,6 +18,9 @@
     <main id="app">
       <div class="hero">
         <div class="container">
+          <figure class = "image-container">   
+            <img id = "chosen=image">
+            
             <form v-on:submit.prevent>
               <input type="search" placeholder="Search" v-model="searchTerm" />
             </form>
