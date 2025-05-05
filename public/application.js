@@ -50,6 +50,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
           .then((json) => this.sparkles = json.data.map(x => x.attributes))
           .catch((json) => console.error(json.errors));
       },
+      darkModeClick: function(event) {
+        console.log("button clicked");
+      },
       isValid: function() {
         return this.sparkle.length > 0;
       },

@@ -20,7 +20,7 @@
             <form v-on:submit.prevent>
               <input type="search" placeholder="Search" v-model="searchTerm" />
             </form>
-          <p class="hero__primary">Show your gratitude</p>
+          <p class="hero__primary">Show your Gratitude</p>
           <p class="hero__secondary">Sparkle someone with joy</p>
           <form v-on:submit.prevent="submitSparkle">
             <label for="body">/sparkle</label>
@@ -28,6 +28,14 @@
             <button type="submit" v-bind:disabled="isDisabled">✨ Sparkle</button>
           </form>
           <span class="error">{{ errorMessage }}</span>
+        </div>
+      </div>
+      <div id="container">
+        <div class="row">
+          <div class="column-9"></div>
+          <div>
+            <button @click="darkModeClick">Dark Mode</button>
+          </div>
         </div>
       </div>
       <div class="confetti-container"></div>
@@ -46,6 +54,7 @@
           </div>
         </div>
       </div>
+
     </main>
     <footer class="container">
       <div class="row">
